@@ -1,0 +1,20 @@
+Dan Duff - dfduff@wpi.edu
+
+For my personal variation I added:
+- Screen Shake for Nuke usage and Player Death.
+-Increased the Hero's firing speed by 30%. 
+- Added Wilhelm death scream as a new explosion noise. 
+- New Saucer Type: Tanker - (with new additional sprite: tanker-spr.txt in the sprites/ directory)
+|-When Tankers are destroyed, they fire Cluster bullets in an octagonal orientation around it, destroying Saucers that are hit by them.
+- Added a new Bullet type and Sprite: Cluster - a multi-directional bullet that fires from a tanker when destroyed.
+
+I felt that the addition of the new "Tanker" enemy allowed the player to be able to destroy saucers on a larger scale 
+comapred to the base game. This also gives the player a more strategic option while playing, giving higher priority to the Tankers \
+(to help destroy even more Saucers). The speed of player interaction was also improved with the firing speed increase.
+Screen Shake was added to provide a nicer visual effect when reaching Game Over, or using the only non-renewable Nuke at your disposal.
+Adding the Wilhelm death screen is a fun addition as well, seeing as many explosions in movies seems to contain it nowadays! 
+
+Screen Shake - Added to Hero destructor and Nuke useage. 
+Wilhelm Scream- Added to Saucer bullet hit detection code.
+Tanker - Added as an identifier variable within the Saucer.cpp class, changing the sprite and type in the constructor (1 in 12 chance to occur, using rand()).
+Cluster - Added as an identifier within the Bullet.cpp class, allowing for the bullet type selection to be made in the constructor(Changing sprite and velocity)
