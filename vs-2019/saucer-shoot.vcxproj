@@ -162,6 +162,7 @@
     <ClInclude Include="points.h" />
     <ClInclude Include="reticle.h" />
     <ClInclude Include="star.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
     <ClCompile Include="Points.cpp" />
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Star.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>

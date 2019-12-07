@@ -121,8 +121,6 @@ void Hero::stopAnimation(bool stop)
 
 // Take appropriate action according to key pressed.
 void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
-
-
 	switch (p_keyboard_event->getKey()) {
 	case df::Keyboard::W:
 		if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED || 

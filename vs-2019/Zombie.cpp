@@ -11,6 +11,7 @@
 #include "DataManager.h"
 #include "explosion.h"
 #include <stdlib.h> /* rand */
+#include <time.h>
 
 // Game includes.
 #include "Zombie.h"
@@ -21,24 +22,74 @@ Zombie::Zombie(){
 	m_move_countdown = 0;
 	m_think_countdown = 0;
 	setType("Saucer");
+	setSolidness(df::HARD);
 	setAltitude(3);
 	setSpeed(1);
 
+
 	// Default sprite
 	setSprite("saucer");
-	stopAnimation(true);
 	registerInterest(df::STEP_EVENT);
-
-	float X = WM.getBoundary().getHorizontal()/2;
-	float Y = WM.getBoundary().getVertical()/2;
-
-	df::Vector v;
-	v.setXY(X, Y);
-	setPosition(v);
 
 	// Keeps track of hero.
 	p_hero = DATA.getHero();
 
+	//determine the zombie's position
+	determinePosition();
+	
+}
+
+void Zombie::determinePosition() {
+	//Set the position of the zombie
+	float X = WM.getBoundary().getHorizontal();
+	float Y = WM.getBoundary().getVertical();
+	float xPos = X;
+	float yPos = Y;
+	float xOffset = 0;
+	float yOffset = 0;
+
+	//srand(time(NULL));
+	int edge = 1;//rand() % 4 + 1; // 1-4
+
+
+	if (edge == 1) { //left
+		LM.writeLog("Left");
+		xOffset = -1;
+		xPos = -5.0;
+		yPos = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / Y));
+	}
+	if (edge == 2) { //top
+		LM.writeLog("Top");
+		yOffset = 1;
+		xPos = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X));
+		yPos = Y + 5.0;
+	}
+	if (edge == 3) { //right
+		LM.writeLog("Right");
+		xOffset = 1;
+		xPos = X + 5.0;
+		yPos = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / Y));
+	}
+	if (edge == 4) { //bot
+		LM.writeLog("Bot");
+		yOffset = -1;
+		xPos = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X));
+		yPos = Y - 5.0;
+	}
+	LM.writeLog("xpos, ypos: %f, %f", xPos, yPos);
+
+	df::Vector final_position;
+	final_position.setXY(xPos, yPos);
+
+	// If collision, move slightly away from stage until empty space.
+	df::ObjectList collision_list = WM.getCollisions(this, final_position);
+	while (!collision_list.isEmpty()) {
+		final_position.setXY(final_position.getX() + xOffset, final_position.getY() + yOffset);
+		collision_list = WM.getCollisions(this, final_position);
+	}
+
+
+	setPosition(final_position);
 }
 
 void Zombie::setMoveCountdown(int new_move_countdown) {
@@ -82,7 +133,7 @@ int Zombie::eventHandler(const df::Event* e) {
 	if (e->getType() == df::STEP_EVENT)
 	{
 		df::Vector hero_loc = seeHero();
-		LM.writeLog("location is %f %f", p_hero->getPosition().getX(), p_hero->getPosition().getY());
+		//LM.writeLog("location is %f %f", p_hero->getPosition().getX(), p_hero->getPosition().getY());
 
 		df::Vector movement = df::Vector(-hero_loc.getX(), -hero_loc.getY());
 		movement.normalize();

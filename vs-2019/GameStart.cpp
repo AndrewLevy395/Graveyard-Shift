@@ -1,5 +1,4 @@
 #include "gameStart.h"
-#include "Zombie.h"
 #include "hero.h"
 #include "points.h"
 #include "Color.h"
@@ -9,6 +8,8 @@
 #include "ResourceManager.h"
 #include "WorldManager.h"
 #include "DataManager.h"
+#include "Zombie.h"
+#include "Wall.h"
 
 GameStart::GameStart() {
 	// Put in center of window.
@@ -47,8 +48,9 @@ void GameStart::start() {
 
 	DATA.setHero(new Hero());
 
-	
-	new Zombie();
+	for (int i = 0; i < NUM_ZOMBIES; i++) {
+		new Zombie;
+	}
 
 	// Setup heads-up display.
 	new Points;	// points display
@@ -58,6 +60,23 @@ void GameStart::start() {
 	p_vo->setViewString("Nukes");
 	p_vo->setValue(1);
 	p_vo->setColor(df::YELLOW);
+
+	//// World dimensions (X,Y).
+	//float X = WM.getBoundary().getHorizontal();
+	//float Y = WM.getBoundary().getVertical();
+
+	//// Place outer Walls.
+	//Wall* p_wall;
+	//p_wall = new Wall((int)X, 1);
+	//p_wall->setPosition(df::Vector(X / 2.0f, 1));
+	//p_wall = new Wall((int)X, 1);
+	//p_wall->setPosition(df::Vector(X / 2.0f, Y - 1));
+	//p_wall = new Wall(1, (int)Y - 1);
+	//p_wall->setPosition(df::Vector(0, Y / 2.0f));
+	//p_wall = new Wall(1, (int)Y - 1);
+	//p_wall->setPosition(df::Vector(X - 1, Y / 2.0f));
+
+
 
 	// When game starts, become inactive.
 	setActive(false);
