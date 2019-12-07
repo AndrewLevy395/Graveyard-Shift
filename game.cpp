@@ -18,8 +18,8 @@ void populateWorld(void) {
 
 void loadResources(void) {
 	// Load saucer sprite.
-	RM.loadSprite("sprites/saucer-spr.txt", "saucer");
-	RM.loadSprite("sprites/tanker-spr.txt", "tanker");
+	RM.loadSprite("sprites/zombie-r-spr.txt", "zombie-r");
+	RM.loadSprite("sprites/zombie-l-spr.txt", "zombie-l");
 	RM.loadSprite("sprites/hero-r-spr.txt", "hero-r");
 	RM.loadSprite("sprites/hero-l-spr.txt", "hero-l");
 	RM.loadSprite("sprites/cluster-spr.txt", "bullet");

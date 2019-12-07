@@ -11,8 +11,8 @@
 #include "hero.h"
 
 
-const float MUMMY_SPEED_CHASE = 0.25;
-const int NUM_ZOMBIES = 6;
+const float ZOMBIE_SPEED_CHASE = 0.15;
+const int NUM_ZOMBIES = 10;
 
 class Zombie : public df::Object {
 
@@ -22,9 +22,11 @@ private:
 	int m_think_countdown;
 	enum direction_type direction;
 	void determinePosition();
+	bool facingRight;
 
 public:
 	Zombie();
+	~Zombie();
 	int eventHandler(const df::Event* e);
 	void stopAnimation(bool stop);
 	df::Vector seeHero();

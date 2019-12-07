@@ -16,8 +16,8 @@ Hero::Hero() {
 	// Link to "hero" sprite.
 	setSprite("hero-r");
 	stopAnimation(true);
+	setNoSoft(true);
 	facingRight = true;
-	//p_hero = this;
 
 	registerInterest(df::KEYBOARD_EVENT);
 	registerInterest(df::STEP_EVENT);

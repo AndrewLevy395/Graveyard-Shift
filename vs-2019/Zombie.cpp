@@ -21,14 +21,16 @@ Zombie::Zombie(){
 	// Basic zombie attributes.
 	m_move_countdown = 0;
 	m_think_countdown = 0;
-	setType("Saucer");
-	setSolidness(df::HARD);
+	setType("Zombie");
+	setSolidness(df::SOFT);
+	setNoSoft(true);
 	setAltitude(3);
-	setSpeed(1);
+	setSpeed(0.25);
 
 
 	// Default sprite
-	setSprite("saucer");
+	setSprite("zombie-r");
+	facingRight = true;
 	registerInterest(df::STEP_EVENT);
 
 	// Keeps track of hero.
@@ -37,6 +39,10 @@ Zombie::Zombie(){
 	//determine the zombie's position
 	determinePosition();
 	
+}
+
+Zombie::~Zombie() {
+	new Zombie();
 }
 
 void Zombie::determinePosition() {
@@ -49,7 +55,7 @@ void Zombie::determinePosition() {
 	float yOffset = 0;
 
 	//srand(time(NULL));
-	int edge = 1;//rand() % 4 + 1; // 1-4
+	int edge = rand() % 4 + 1; // 1-4
 
 
 	if (edge == 1) { //left
@@ -60,9 +66,9 @@ void Zombie::determinePosition() {
 	}
 	if (edge == 2) { //top
 		LM.writeLog("Top");
-		yOffset = 1;
+		yOffset = -1;
 		xPos = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X));
-		yPos = Y + 5.0;
+		yPos = -5.0;
 	}
 	if (edge == 3) { //right
 		LM.writeLog("Right");
@@ -72,10 +78,11 @@ void Zombie::determinePosition() {
 	}
 	if (edge == 4) { //bot
 		LM.writeLog("Bot");
-		yOffset = -1;
+		yOffset = 1;
 		xPos = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X));
-		yPos = Y - 5.0;
+		yPos = Y + 5.0;
 	}
+
 	LM.writeLog("xpos, ypos: %f, %f", xPos, yPos);
 
 	df::Vector final_position;
@@ -130,15 +137,27 @@ void Zombie::stopAnimation(bool stop) {
 // Handle event.
 // Return 0 if ignored, else 1
 int Zombie::eventHandler(const df::Event* e) {
-	if (e->getType() == df::STEP_EVENT)
-	{
+	if (e->getType() == df::STEP_EVENT){
 		df::Vector hero_loc = seeHero();
 		//LM.writeLog("location is %f %f", p_hero->getPosition().getX(), p_hero->getPosition().getY());
 
 		df::Vector movement = df::Vector(-hero_loc.getX(), -hero_loc.getY());
 		movement.normalize();
-		movement.scale(MUMMY_SPEED_CHASE);
+		movement.scale(ZOMBIE_SPEED_CHASE);
+
+		//reduce vertical movement to match horizontal movement
+		movement.setY(movement.getY() * 0.55);
 		setVelocity(movement);
+
+		//change left/right sprite based on hero location
+		if (!facingRight && this->getPosition().getX() < p_hero->getPosition().getX()) {
+			setSprite("zombie-r");
+			facingRight = true;
+		}
+		else if(facingRight && this->getPosition().getX() > p_hero->getPosition().getX()) {
+			setSprite("zombie-l");
+			facingRight = false;
+		}
 		return 1;
 	}
 	if (e->getType() == df::COLLISION_EVENT) {

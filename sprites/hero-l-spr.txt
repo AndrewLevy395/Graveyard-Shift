@@ -8,11 +8,11 @@ slowdown 4
 <BODY>
 ___ O 
   \=| 
-    | 
+   / \
 end
 ___ O 
   \-|)
-   / \
+    | 
 end
 </BODY>
 <FOOTER>
