@@ -7,6 +7,7 @@
 #include "Object.h"
 #include "Vector.h"
 #include "StateMachine.h"
+#include "EventCollision.h"
 
 #include "hero.h"
 
@@ -21,8 +22,10 @@ private:
 	int m_move_countdown;
 	int m_think_countdown;
 	enum direction_type direction;
-	void determinePosition();
 	bool facingRight;
+	void determinePosition();
+	void setChase();
+	int hit(const df::EventCollision* p_c);
 
 public:
 	Zombie();

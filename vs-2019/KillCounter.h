@@ -2,11 +2,11 @@
 #include "ViewObject.h"
 #include "Event.h"
 
-#define POINTS_STRING "Points"
+#define KILLCOUNT_STRING "KILLS:"
 
-class Points : public df::ViewObject {
+class KillCounter : public df::ViewObject {
 
 public:
-	Points();
+	KillCounter();
 	int eventHandler(const df::Event* p_e);
 };

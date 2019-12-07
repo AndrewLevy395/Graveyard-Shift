@@ -1,6 +1,6 @@
 #include "gameStart.h"
 #include "hero.h"
-#include "points.h"
+#include "KillCounter.h"
 #include "Color.h"
 #include "EventKeyboard.h"
 #include "GameManager.h"
@@ -10,6 +10,7 @@
 #include "DataManager.h"
 #include "Zombie.h"
 #include "Wall.h"
+#include "Health.h"
 
 GameStart::GameStart() {
 	// Put in center of window.
@@ -47,19 +48,22 @@ int GameStart::eventHandler(const df::Event* p_e) {
 void GameStart::start() {
 
 	DATA.setHero(new Hero());
+	
 
 	for (int i = 0; i < NUM_ZOMBIES; i++) {
 		new Zombie;
 	}
 
 	// Setup heads-up display.
-	new Points;	// points display
+	new KillCounter();	// kill count display
+	new Health; // add health
 
-	df::ViewObject* p_vo = new df::ViewObject; // Count of nukes.
-	p_vo->setLocation(df::TOP_LEFT);
-	p_vo->setViewString("Nukes");
-	p_vo->setValue(1);
+	df::ViewObject* p_vo = new df::ViewObject; // Kill Goal
+	p_vo->setLocation(df::TOP_CENTER);
+	p_vo->setViewString("KILL GOAL: ");
+	p_vo->setValue(15);
 	p_vo->setColor(df::YELLOW);
+	DATA.setGoalObject(p_vo);
 
 	// World dimensions (X,Y).
 	float X = WM.getBoundary().getHorizontal();

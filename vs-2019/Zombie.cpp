@@ -4,17 +4,19 @@
 
 // Engine includes.
 #include "EventStep.h"
+#include "EventView.h"
 #include "EventCollision.h"
 #include "LogManager.h"
 #include "WorldManager.h"
 #include "utility.h"
 #include "DataManager.h"
-#include "explosion.h"
 #include <stdlib.h> /* rand */
 #include <time.h>
 
 // Game includes.
 #include "Zombie.h"
+#include "KillCounter.h"
+#include "explosion.h"
 
 Zombie::Zombie(){
 
@@ -23,6 +25,7 @@ Zombie::Zombie(){
 	m_think_countdown = 0;
 	setType("Zombie");
 	setSolidness(df::SOFT);
+	//Has HARD-like collisions with Soft Objects
 	setNoSoft(true);
 	setAltitude(3);
 	setSpeed(0.25);
@@ -42,7 +45,8 @@ Zombie::Zombie(){
 }
 
 Zombie::~Zombie() {
-	new Zombie();
+	df::EventView ev(KILLCOUNT_STRING, 1, true);
+	WM.onEvent(&ev);
 }
 
 void Zombie::determinePosition() {
@@ -55,6 +59,8 @@ void Zombie::determinePosition() {
 	float yOffset = 0;
 
 	//srand(time(NULL));
+
+	//Randomize which edge of the screen the zombie should spawn
 	int edge = rand() % 4 + 1; // 1-4
 
 
@@ -94,7 +100,6 @@ void Zombie::determinePosition() {
 		final_position.setXY(final_position.getX() + xOffset, final_position.getY() + yOffset);
 		collision_list = WM.getCollisions(this, final_position);
 	}
-
 
 	setPosition(final_position);
 }
@@ -138,49 +143,61 @@ void Zombie::stopAnimation(bool stop) {
 // Return 0 if ignored, else 1
 int Zombie::eventHandler(const df::Event* e) {
 	if (e->getType() == df::STEP_EVENT){
-		df::Vector hero_loc = seeHero();
-		//LM.writeLog("location is %f %f", p_hero->getPosition().getX(), p_hero->getPosition().getY());
-
-		df::Vector movement = df::Vector(-hero_loc.getX(), -hero_loc.getY());
-		movement.normalize();
-		movement.scale(ZOMBIE_SPEED_CHASE);
-
-		//reduce vertical movement to match horizontal movement
-		movement.setY(movement.getY() * 0.55);
-		setVelocity(movement);
-
-		//change left/right sprite based on hero location
-		if (!facingRight && this->getPosition().getX() < p_hero->getPosition().getX()) {
-			setSprite("zombie-r");
-			facingRight = true;
-		}
-		else if(facingRight && this->getPosition().getX() > p_hero->getPosition().getX()) {
-			setSprite("zombie-l");
-			facingRight = false;
-		}
+		setChase();
 		return 1;
 	}
 	if (e->getType() == df::COLLISION_EVENT) {
-
 		const df::EventCollision* p_c = dynamic_cast <df::EventCollision const*> (e);
+		return hit(p_c);
+	}
+	return 0;
+}
 
-		// If Saucer on Saucer, ignore.
-		if ((p_c->getObject1()->getType() == "saucer") &&
-			(p_c->getObject2()->getType() == "saucer"))
-			return 1;
-		// If Bullet...
-		if ((p_c->getObject1()->getType() == "bullet") ||
-			(p_c->getObject2()->getType() == "bullet")) {
+//Sets the chasing direction and sprite for the zombie
+void Zombie::setChase() {
+	df::Vector hero_loc = seeHero();
+	//LM.writeLog("location is %f %f", p_hero->getPosition().getX(), p_hero->getPosition().getY());
 
-			// Create an explosion.
-			Explosion* p_explosion = new Explosion;
-			p_explosion->setPosition(this->getPosition());
+	df::Vector movement = df::Vector(-hero_loc.getX(), -hero_loc.getY());
+	movement.normalize();
+	movement.scale(ZOMBIE_SPEED_CHASE);
 
-			WM.markForDelete(p_c->getObject1());
-			WM.markForDelete(p_c->getObject2());
+	//reduce vertical movement to match horizontal movement
+	movement.setY(movement.getY() * 0.55);
+	setVelocity(movement);
 
-			return 1;
-		}
+	//change left/right sprite based on hero location
+	if (!facingRight && this->getPosition().getX() < p_hero->getPosition().getX()) {
+		setSprite("zombie-r");
+		facingRight = true;
+	}
+	else if (facingRight && this->getPosition().getX() > p_hero->getPosition().getX()) {
+		setSprite("zombie-l");
+		facingRight = false;
+	}
+}
+
+//code to be run for an object colliding with a zombie
+int Zombie::hit(const df::EventCollision* p_c) {
+	// If Saucer on Saucer, ignore.
+	if ((p_c->getObject1()->getType() == "saucer") &&
+		(p_c->getObject2()->getType() == "saucer"))
+		return 1;
+	// If Bullet...
+	if ((p_c->getObject1()->getType() == "bullet") ||
+		(p_c->getObject2()->getType() == "bullet")) {
+
+		// Create an explosion.
+		Explosion* p_explosion = new Explosion;
+		p_explosion->setPosition(this->getPosition());
+
+		//Spawn new zombie
+		new Zombie();
+
+		WM.markForDelete(p_c->getObject1());
+		WM.markForDelete(p_c->getObject2());
+
+		return 1;
 	}
 	return 0;
 }

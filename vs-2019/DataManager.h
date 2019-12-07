@@ -1,7 +1,9 @@
 #ifndef __DATA_MANAGER_H__
 #define __DATA_MANAGER_H__
 #include "Manager.h"
+#include "ViewObject.h"
 #include "hero.h"
+#include <string.h>
 
 #define DATA DataManager::getInstance()
 
@@ -13,6 +15,7 @@ private:
 	DataManager(DataManager const&);
 	void operator=(DataManager const&);
 	Hero* p_hero;
+	df::ViewObject* goal;
 
 public:
 	// Get the one and only instance of the InputManager.
@@ -28,6 +31,16 @@ public:
 	Hero* getHero();
 
 	void setHero(Hero* hero_pointer);
+
+	df::ViewObject* getGoalObject();
+
+	void setGoalObject(df::ViewObject* new_goal);
+
+	void setGoalContent(std::string message, int value);
+
+	std::string getGoalString();
+
+	void setOnlyGoalMessage(std::string);
 };
 
 #endif

@@ -1,7 +1,6 @@
 // Engine includes
 #include "GameManager.h"
 #include "LogManager.h"
-#include "vs-2019/points.h"
 #include "ResourceManager.h"
 #include "vs-2019/hero.h"
 #include "vs-2019/star.h"

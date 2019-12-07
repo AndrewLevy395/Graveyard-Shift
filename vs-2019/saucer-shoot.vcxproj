@@ -158,8 +158,9 @@
     <ClInclude Include="explosion.h" />
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="gameStart.h" />
+    <ClInclude Include="Health.h" />
     <ClInclude Include="hero.h" />
-    <ClInclude Include="points.h" />
+    <ClInclude Include="KillCounter.h" />
     <ClInclude Include="reticle.h" />
     <ClInclude Include="star.h" />
     <ClInclude Include="Wall.h" />
@@ -173,8 +174,9 @@
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameStart.cpp" />
+    <ClCompile Include="Health.cpp" />
     <ClCompile Include="Hero.cpp" />
-    <ClCompile Include="Points.cpp" />
+    <ClCompile Include="KillCounter.cpp" />
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="Wall.cpp" />
