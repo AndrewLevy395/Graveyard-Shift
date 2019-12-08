@@ -164,6 +164,7 @@
     <ClInclude Include="KillCounter.h" />
     <ClInclude Include="LargeTombStone.h" />
     <ClInclude Include="reticle.h" />
+    <ClInclude Include="SpeedItem.h" />
     <ClInclude Include="star.h" />
     <ClInclude Include="Tombstone.h" />
     <ClInclude Include="Wall.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="KillCounter.cpp" />
     <ClCompile Include="LargeTombstone.cpp" />
     <ClCompile Include="Reticle.cpp" />
+    <ClCompile Include="SpeedItem.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="Tombstone.cpp" />
     <ClCompile Include="Wall.cpp" />

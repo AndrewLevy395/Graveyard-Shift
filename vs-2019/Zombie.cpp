@@ -10,6 +10,7 @@
 #include "WorldManager.h"
 #include "utility.h"
 #include "DataManager.h"
+#include "SpeedItem.h"
 #include <stdlib.h> /* rand */
 #include <time.h>
 
@@ -45,7 +46,11 @@ Zombie::Zombie(){
 }
 
 Zombie::~Zombie() {
-
+	srand(time(NULL));
+	int randSpawn = rand() % 20 + 1;
+	if (randSpawn == 2) {
+		DATA.placeObject(new SpeedItem);
+	}
 }
 
 void Zombie::determinePosition() {
@@ -57,7 +62,7 @@ void Zombie::determinePosition() {
 	float xOffset = 0;
 	float yOffset = 0;
 
-	//srand(time(NULL));
+	srand(time(NULL));
 
 	//Randomize which edge of the screen the zombie should spawn
 	int edge = rand() % 4 + 1; // 1-4

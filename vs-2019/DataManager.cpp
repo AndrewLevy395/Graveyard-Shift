@@ -1,5 +1,7 @@
 #include "DataManager.h"
 #include "WorldManager.h"
+#include <time.h> 
+
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -65,6 +67,7 @@ void DataManager::placeObject(df::Object* p_o) {
 	// Repeat until random (x,y) doesn't have collision for Object.
 	df::ObjectList collision_list;
 	df::Vector pos;
+	srand(time(NULL));
 	do {
 		float x = (float)(rand() % (X - 8) + 4);
 		float y = (float)(rand() % (Y - 4) + 2 + 1);

@@ -109,6 +109,19 @@ void Hero::hit(const df::EventCollision* p_c) {
 		df::EventView ev("Health", -1, true);
 		WM.onEvent(&ev);
 	}
+	// If hit, increase speed.
+	if (p_c->getObject2()->getType() == "SpeedItem") {
+		WM.markForDelete(p_c->getObject2());
+		HERO_SPEED = df::Vector(0.50f, 0.25f);
+	}
+
+	if (p_c->getObject1()->getType() == "Boss" ||
+		p_c->getObject2()->getType() == "Boss")
+	{
+		// Send "view" event to Heath HUD indicating damage.
+		df::EventView ev("Health", -1, true);
+		WM.onEvent(&ev);
+	}
 }
 
 // Start or stop animation.

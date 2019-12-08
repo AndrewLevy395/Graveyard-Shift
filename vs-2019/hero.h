@@ -6,7 +6,7 @@
 #include "Object.h"
 #include "reticle.h"
 
-const df::Vector HERO_SPEED(0.33f, 0.15f);
+
 
 class Hero : public df::Object {
 
@@ -26,6 +26,7 @@ private:
 	int fire_countdown;
 	int nuke_count;
 	Reticle* p_reticle;
+	df::Vector HERO_SPEED = df::Vector(0.33f, 0.15f);
 
 public:
 	Hero();

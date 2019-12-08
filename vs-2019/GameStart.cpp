@@ -13,6 +13,7 @@
 #include "Wall.h"
 #include "Health.h"
 #include "LargeTombStone.h"
+#include "SpeedItem.h"
 
 GameStart::GameStart() {
 	// Put in center of window.
