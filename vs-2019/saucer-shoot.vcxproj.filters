@@ -54,6 +54,9 @@
     <ClInclude Include="Health.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Tombstone.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game.cpp">
@@ -96,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Health.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tombstone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

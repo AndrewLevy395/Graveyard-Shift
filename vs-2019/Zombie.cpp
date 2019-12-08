@@ -1,5 +1,5 @@
 //
-// Mummy.cpp
+// Zombie.cpp
 //
 
 // Engine includes.
@@ -45,8 +45,7 @@ Zombie::Zombie(){
 }
 
 Zombie::~Zombie() {
-	df::EventView ev(KILLCOUNT_STRING, 1, true);
-	WM.onEvent(&ev);
+
 }
 
 void Zombie::determinePosition() {
@@ -180,8 +179,8 @@ void Zombie::setChase() {
 //code to be run for an object colliding with a zombie
 int Zombie::hit(const df::EventCollision* p_c) {
 	// If Saucer on Saucer, ignore.
-	if ((p_c->getObject1()->getType() == "saucer") &&
-		(p_c->getObject2()->getType() == "saucer"))
+	if ((p_c->getObject1()->getType() == "Zombie") &&
+		(p_c->getObject2()->getType() == "Zombie"))
 		return 1;
 	// If Bullet...
 	if ((p_c->getObject1()->getType() == "bullet") ||
@@ -196,6 +195,9 @@ int Zombie::hit(const df::EventCollision* p_c) {
 
 		WM.markForDelete(p_c->getObject1());
 		WM.markForDelete(p_c->getObject2());
+
+		df::EventView ev(KILLCOUNT_STRING, 1, true);
+		WM.onEvent(&ev);
 
 		return 1;
 	}

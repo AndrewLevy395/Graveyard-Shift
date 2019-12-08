@@ -2,10 +2,12 @@
 #include "GameManager.h"
 #include "LogManager.h"
 #include "ResourceManager.h"
+#include "WorldManager.h"
 #include "vs-2019/hero.h"
 #include "vs-2019/star.h"
 #include "vs-2019/gameStart.h"
 #include "Object.h"
+#include "vs-2019/Tombstone.h"
 #include "Pause.h"
 #include <stdio.h>
 
@@ -26,6 +28,7 @@ void loadResources(void) {
 	RM.loadSprite("sprites/explosion-spr.txt", "explosion");
 	RM.loadSprite("sprites/gameover-spr.txt", "GameOver");
 	RM.loadSprite("sprites/gamestart-spr.txt", "GameStart");
+	RM.loadSprite("sprites/tombstone-spr.txt", "tombstone");
 	RM.loadSound("sounds/fire.wav", "fire");
 	RM.loadSound("sounds/explode.wav", "explode");
 	RM.loadSound("sounds/scream.wav", "scream");

@@ -9,6 +9,7 @@
 #include "WorldManager.h"
 #include "DataManager.h"
 #include "Zombie.h"
+#include "Tombstone.h"
 #include "Wall.h"
 #include "Health.h"
 
@@ -80,6 +81,10 @@ void GameStart::start() {
 	p_wall = new Wall(1, (int)Y - 1);
 	p_wall->setPosition(df::Vector(X - 1, Y / 2.0f));
 
+	//Place tombstones.
+	for (int i = 0; i < 5; i++)
+		placeObject(new Tombstone);
+
 	// When game starts, become inactive.
 	setActive(false);
 	// Pause start music.
@@ -93,4 +98,25 @@ int GameStart::draw() {
 
 void GameStart::playMusic() {
 	p_music->play();
+}
+
+// Randomly place Object, making sure no collision.
+void GameStart::placeObject(df::Object* p_o) {
+
+	// World dimensions (X,Y).
+	int X = (int)WM.getBoundary().getHorizontal();
+	int Y = (int)WM.getBoundary().getVertical();
+
+	// Repeat until random (x,y) doesn't have collision for Object.
+	df::ObjectList collision_list;
+	df::Vector pos;
+	do {
+		float x = (float)(rand() % (X - 8) + 4);
+		float y = (float)(rand() % (Y - 4) + 2 + 1);
+		pos.setXY(x, y);
+		collision_list = WM.getCollisions(p_o, pos);
+	} while (!collision_list.isEmpty());
+
+	// Set position.
+	p_o->setPosition(pos);
 }

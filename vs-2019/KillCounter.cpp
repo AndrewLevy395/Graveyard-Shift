@@ -20,6 +20,14 @@ int KillCounter::eventHandler(const df::Event* p_e) {
 	// Parent handles event if score update.
 	if (df::ViewObject::eventHandler(p_e)) {
 		if (this->getValue() == DATA.getGoalObject()->getValue()) {
+			df::ObjectList allObjects = WM.getAllObjects();
+			df::ObjectListIterator it(&allObjects);
+			for (it.first(); !it.isDone(); it.next()) {
+				df::Object* p_o = it.currentObject();
+				if (p_o->getType() == "Zombie") {
+					WM.markForDelete(p_o);
+				}
+			}
 			DATA.setOnlyGoalMessage("DEFEAT THE BOSS!");
 		}
 		return 1;

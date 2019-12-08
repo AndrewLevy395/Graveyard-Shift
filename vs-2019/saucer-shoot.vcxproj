@@ -163,6 +163,7 @@
     <ClInclude Include="KillCounter.h" />
     <ClInclude Include="reticle.h" />
     <ClInclude Include="star.h" />
+    <ClInclude Include="Tombstone.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>
@@ -179,6 +180,7 @@
     <ClCompile Include="KillCounter.cpp" />
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Star.cpp" />
+    <ClCompile Include="Tombstone.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
