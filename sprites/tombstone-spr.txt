@@ -1,26 +1,14 @@
 <HEADER>
-frames 4
-width 4
+frames 1
+width 5
 height 3
-color green
+color white
 slowdown 5
 </HEADER>
 <BODY>
- @__
- |\ 
-/ \ 
-end
- @/ 
- |\ 
- |\ 
-end
- @__
- |  
-/ \ 
-end
- @__
- |\ 
-/|  
+ ___ 
+(RIP)
+|___|
 end
 </BODY>
 <FOOTER>
