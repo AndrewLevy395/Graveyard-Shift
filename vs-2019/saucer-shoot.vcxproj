@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="eventNuke.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Health.h" />
     <ClInclude Include="hero.h" />
     <ClInclude Include="KillCounter.h" />
+    <ClInclude Include="LargeTombStone.h" />
     <ClInclude Include="reticle.h" />
     <ClInclude Include="star.h" />
     <ClInclude Include="Tombstone.h" />
@@ -169,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="EventNuke.cpp" />
@@ -178,6 +181,7 @@
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="KillCounter.cpp" />
+    <ClCompile Include="LargeTombstone.cpp" />
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="Tombstone.cpp" />

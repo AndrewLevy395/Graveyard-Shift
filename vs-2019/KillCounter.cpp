@@ -8,6 +8,7 @@
 #include "ResourceManager.h"
 #include "WorldManager.h"
 #include "DataManager.h"
+#include "Boss.h"
 
 KillCounter::KillCounter() {
 	setLocation(df::TOP_RIGHT);
@@ -29,6 +30,7 @@ int KillCounter::eventHandler(const df::Event* p_e) {
 				}
 			}
 			DATA.setOnlyGoalMessage("DEFEAT THE BOSS!");
+			new Boss;
 		}
 		return 1;
 	}

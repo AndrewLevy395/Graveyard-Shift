@@ -21,6 +21,8 @@ void loadResources(void) {
 	// Load saucer sprite.
 	RM.loadSprite("sprites/zombie-r-spr.txt", "zombie-r");
 	RM.loadSprite("sprites/zombie-l-spr.txt", "zombie-l");
+	RM.loadSprite("sprites/zombie-boss-r-spr.txt", "zombie-boss-r");
+	RM.loadSprite("sprites/zombie-boss-l-spr.txt", "zombie-boss-l");
 	RM.loadSprite("sprites/hero-r-spr.txt", "hero-r");
 	RM.loadSprite("sprites/hero-l-spr.txt", "hero-l");
 	RM.loadSprite("sprites/cluster-spr.txt", "bullet");
@@ -29,6 +31,7 @@ void loadResources(void) {
 	RM.loadSprite("sprites/gameover-spr.txt", "GameOver");
 	RM.loadSprite("sprites/gamestart-spr.txt", "GameStart");
 	RM.loadSprite("sprites/tombstone-spr.txt", "tombstone");
+	RM.loadSprite("sprites/tombstone-large-spr.txt", "tombstone-large");
 	RM.loadSound("sounds/fire.wav", "fire");
 	RM.loadSound("sounds/explode.wav", "explode");
 	RM.loadSound("sounds/scream.wav", "scream");

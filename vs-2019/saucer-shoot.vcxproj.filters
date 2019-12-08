@@ -57,6 +57,12 @@
     <ClInclude Include="Tombstone.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LargeTombStone.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game.cpp">
@@ -102,6 +108,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tombstone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LargeTombstone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

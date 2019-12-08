@@ -41,6 +41,8 @@ public:
 	std::string getGoalString();
 
 	void setOnlyGoalMessage(std::string);
+
+	void placeObject(df::Object* p_o);
 };
 
 #endif
