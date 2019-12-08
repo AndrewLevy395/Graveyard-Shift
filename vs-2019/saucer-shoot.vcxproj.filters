@@ -27,12 +27,6 @@
     <ClInclude Include="explosion.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="eventNuke.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="star.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="gameOver.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -63,6 +57,9 @@
     <ClInclude Include="LargeTombStone.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Revolver.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game.cpp">
@@ -78,12 +75,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Explosion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EventNuke.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Star.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameOver.cpp">
@@ -114,6 +105,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LargeTombstone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Revolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

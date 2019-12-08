@@ -1,5 +1,6 @@
 #include "DataManager.h"
 #include "WorldManager.h"
+#include "Music.h"
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -7,6 +8,7 @@ void DataManager::operator=(DataManager const&) {}
 DataManager::DataManager() {
 	p_hero = NULL;
 	goal = NULL;
+	level_music = NULL;
 	setType("DataManager");
 }
 
@@ -74,4 +76,22 @@ void DataManager::placeObject(df::Object* p_o) {
 
 	// Set position.
 	p_o->setPosition(pos);
+}
+
+//sets the level music
+void DataManager::setLevelMusic(df::Music* music) {
+	level_music = music;
+}
+
+//returns the level music
+df::Music* DataManager::getLevelMusic() {
+	return level_music;
+}
+
+void DataManager::setKillCounter(df::ViewObject* kc) {
+	kill_counter = kc;
+}
+
+df::ViewObject* DataManager::getKillCounter() {
+	return kill_counter;
 }

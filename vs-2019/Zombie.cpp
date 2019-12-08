@@ -17,6 +17,7 @@
 #include "Zombie.h"
 #include "KillCounter.h"
 #include "explosion.h"
+#include "Revolver.h"
 
 Zombie::Zombie(){
 
@@ -45,7 +46,10 @@ Zombie::Zombie(){
 }
 
 Zombie::~Zombie() {
-
+	if (DATA.getKillCounter()->getValue() == 10) {
+		Revolver* r = new Revolver();
+		r->setPosition(this->getPosition());
+	}
 }
 
 void Zombie::determinePosition() {

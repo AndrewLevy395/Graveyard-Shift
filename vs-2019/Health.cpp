@@ -4,7 +4,9 @@
 
 // Engine includes.
 #include "DisplayManager.h"
-#include "GameManager.h"		
+#include "GameManager.h"	
+#include "WorldManager.h"
+#include "DataManager.h"
 
 // Game includes.
 #include "Health.h"
@@ -21,8 +23,11 @@ Health::Health() {
 int Health::eventHandler(const df::Event* p_e) {
 	// Call parent handler.
 	if (df::ViewObject::eventHandler(p_e)) {
-		if (getValue() < 1)
-			df::GameManager::getInstance().setGameOver();
+		if (getValue() < 1) {
+			setValue(0);
+			WM.markForDelete(DATA.getHero());
+		}
+			//df::GameManager::getInstance().setGameOver();
 	}
 
 	// If we get here, event not handled.
