@@ -6,9 +6,9 @@
 void DataManager::operator=(DataManager const&) {}
 
 DataManager::DataManager() {
-	p_hero = NULL;
-	goal = NULL;
-	level_music = NULL;
+	p_hero;
+	goal;
+	level_music;
 	setType("DataManager");
 }
 

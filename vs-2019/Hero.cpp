@@ -108,12 +108,19 @@ void Hero::hit(const df::EventCollision* p_c) {
 		WM.onEvent(&ev);
 	}
 
+	if (p_c->getObject1()->getType() == "Boss" ||
+		p_c->getObject2()->getType() == "Boss") {
+		// Send "view" event to Heath HUD indicating damage.
+		df::EventView ev("Health", -1, true);
+		WM.onEvent(&ev);
+	}
+
 	if (p_c->getObject1()->getType() == "Revolver"){
 		WM.markForDelete(p_c->getObject1());
 		//Get Firing Speed boost
 		fire_slowdown = 3;
 	}
-	else if (p_c->getObject2()->getType() == "Raaevolver") {
+	else if (p_c->getObject2()->getType() == "Revolver") {
 		WM.markForDelete(p_c->getObject2());
 		//Get firing Speed Boost
 		fire_slowdown = 3;

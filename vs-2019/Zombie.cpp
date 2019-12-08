@@ -46,9 +46,11 @@ Zombie::Zombie(){
 }
 
 Zombie::~Zombie() {
-	if (DATA.getKillCounter()->getValue() == 10) {
-		Revolver* r = new Revolver();
-		r->setPosition(this->getPosition());
+	if (DATA.getKillCounter() != NULL) {
+		if (DATA.getKillCounter()->getValue() == 10) {
+			Revolver* r = new Revolver();
+			r->setPosition(this->getPosition());
+		}
 	}
 }
 

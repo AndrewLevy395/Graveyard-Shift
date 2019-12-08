@@ -31,8 +31,8 @@ slowdown 35
                     ^~~~^~~~^                    
 end
                   _,.-------.,_                  
-              ,;~'             '~;,              
-            ,;                     ;,            
+  WASD        ,;~'             '~;,   Click to   
+Movement    ,;                     ;,   Shoot    
            ;    Press 'p' to play,   ;           
           ,'      'q' to quit        ',          
          ,;                           ;,         

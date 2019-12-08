@@ -48,9 +48,14 @@ void Bullet::out() {
 
 // If Bullet hits Saucer, mark Saucer and Bullet for deletion. (Content moved to Suacer Hit)
 void Bullet::hit(const df::EventCollision* p_collision_event) {
-	//if ((p_collision_event->getObject1()->getType() == "saucer") ||
-	//	(p_collision_event->getObject2()->getType() == "saucer")) {
-	//	WM.markForDelete(p_collision_event->getObject1());
-	//	WM.markForDelete(p_collision_event->getObject2());
-	//}
+	if ((p_collision_event->getObject1()->getType() == "Wall") ||
+		(p_collision_event->getObject2()->getType() == "Wall")) {
+
+		if (p_collision_event->getObject1()->getType() == "bullet") {
+			WM.markForDelete(p_collision_event->getObject1());
+		}
+		else {
+			WM.markForDelete(p_collision_event->getObject2());
+		}
+	}
 }
