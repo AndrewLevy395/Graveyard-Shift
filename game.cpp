@@ -30,6 +30,7 @@ void loadResources(void) {
 	RM.loadSprite("sprites/gamestart-spr.txt", "GameStart");
 	RM.loadSprite("sprites/tombstone-spr.txt", "tombstone");
 	RM.loadSprite("sprites/revolver-spr.txt", "revolver");
+	RM.loadSprite("sprites/saucer-spr.txt", "saucer");
 	RM.loadSprite("sprites/tombstone-large-spr.txt", "tombstone-large");
 	RM.loadSound("sounds/fire.wav", "fire");
 	RM.loadSound("sounds/explode.wav", "explode");

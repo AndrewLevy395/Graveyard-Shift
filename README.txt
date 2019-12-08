@@ -1,26 +1,13 @@
-Dan Duff's SAUCER SHOOT Variation
+Graveyard Shift Alpha
 Dan Duff (dfduff@wpi.edu)
-10/24/19
-
-Saucer Shoot game from Dragonfly tutorial, with an added variation.
-The game.cpp is the main class file, with Objects defined as (with respective header files):
--Saucers (Saucers.cpp - enemies to destroy)
--Hero (Hero.cpp - player-controlled unit)
--Stars (Star.cpp - background image)
--Reticle (Reticle.cpp - Shows mouse location)
--Bullets (Bullet.cpp - projectile that destroys saucers, fired by player's Hero)
-
-With event and meta objects:
--GameOver(GameOver.cpp - Played when game ends)
--GameStart(GameStart.cpp - Played after Dragonfly splash screen)
--Explosion(Explosion.cpp - Shown after Saucer iteracts with a Bullet object)
--Nuke(Nuke.cpp - destroys all Saucers)
+Andrew Levy (amlevy@wpi.edu)
+12/7/19
 
 --------------------------------------------------------------------
 
-(Loading the File into Visual Studio can be done by selecting the saucer-shoot.sln file in the vs-2019/ directory). 
+(Loading the File into Visual Studio can be done by selecting the graveyard.sln file in the vs-2019/ directory). 
 
-To build (via Dragonfly Tutorial README):
+To build (via Tutorial README):
 
 0) Setup development environment for Windows, Linux or MacOS.
 See http://dragonfly.wpi.edu/engine/index.html#setup for details.
@@ -31,12 +18,31 @@ Mac, F7 on Windows from Visual Studio).
 2) Run game, as appropriate for the platform (e.g., "./game" on
 Linux or Mac, F5 on Windows from Visual Studio)
 
+3) Play game with WASD and left click to shoot. Defeat all enemies and the final boss to win.
+--------------------------------------------------------------------
+
+The game.cpp is the main class file, with Objects defined as (with respective header files):
+-Zombies (Zombies.cpp - enemies to destroy)
+-Boss (Boss.cpp - final enemy)
+-Hero (Hero.cpp - player-controlled unit)
+-Tombstone (Tombstone.cpp - randomly generated terrain objects)
+-Large Tombstone (LargeTombstone.cpp - large terrain object)
+-Reticle (Reticle.cpp - Shows mouse location)
+-Bullets (Bullet.cpp - projectile that destroys saucers, fired by player's Hero)
+
+With event and meta objects:
+-GameOver(GameOver.cpp - Played when game ends)
+-GameStart(GameStart.cpp - Played after Dragonfly splash screen)
+-Revolver(Revolver.cpp - Increaesed shooting speed)
+-SpeedItem(SpeedItem.cpp - Randomly drops, increases player speed)
+-DataMAnager(DataMAnager.cpp - Holds overall data that classes may need to draw from - singleton)
+
 --------------------------------------------------------------------
 
 Directories:
 
-sounds/ - contains the sound files used in Saucer shoot
-sprites/ - contains the sprite files used in Saucer shoot
+sounds/ - contains the sound files used in Graveyard Shift
+sprites/ - contains the sprite files used in Graveyard Shift
 vs-2019/ - contains Visual Studio solution files (Microsoft Windows), as well as all additional source code outside of game.cpp
 
 --------------------------------------------------------------------
