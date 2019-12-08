@@ -1,6 +1,7 @@
 #include "DataManager.h"
 #include "WorldManager.h"
 #include "Music.h"
+#include "Gate.h"
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -9,6 +10,7 @@ DataManager::DataManager() {
 	p_hero;
 	goal;
 	level_music;
+	current_level = 1;
 	setType("DataManager");
 }
 
@@ -18,6 +20,36 @@ int DataManager::startUp() {
 
 void DataManager::shutDown() {
 	return Manager::shutDown();
+}
+
+void DataManager::removeAll(std::string type) {
+	df::ObjectList allObjects = WM.getAllObjects();
+	df::ObjectListIterator it(&allObjects);
+	for (it.first(); !it.isDone(); it.next()) {
+		df::Object* p_o = it.currentObject();
+		if (p_o->getType() == type) {
+			WM.markForDelete(p_o);
+		}
+	}
+}
+
+void DataManager::transitionToNextLevel() {
+	if (current_level == 1) {
+
+		current_level = 2;
+		df::Vector p(7, WM.getBoundary().getVertical() / 2);
+		p_hero->setPosition(p);
+		p_hero->resetPowerups();
+		removeAll("Gate");
+	}
+	
+}
+
+void DataManager::setGate() {
+	DATA.removeAll("Zombie");
+	df::Vector placement(WM.getBoundary().getHorizontal()-3, WM.getBoundary().getVertical()/2);
+	new Gate(placement);
+	setOnlyGoalMessage("Escape to the Exit!");
 }
 
 void DataManager::setHero(Hero* hero) {

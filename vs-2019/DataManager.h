@@ -15,6 +15,7 @@ private:
 	DataManager();
 	DataManager(DataManager const&);
 	void operator=(DataManager const&);
+	int current_level;
 	Hero* p_hero;
 	df::ViewObject* goal;
 	df::Music* level_music;
@@ -30,6 +31,15 @@ public:
 
 	// Revert back to normal terminal mode.
 	void shutDown();
+
+	//removes all objects with given type
+	void removeAll(std::string type);
+
+	//produces an exit to transition to the next level
+	void transitionToNextLevel();
+
+	//places the gate object on the map
+	void setGate();
 
 	Hero* getHero();
 

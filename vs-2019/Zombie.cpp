@@ -50,7 +50,9 @@ Zombie::~Zombie() {
 	if (DATA.getKillCounter() != NULL) {
 		if (DATA.getKillCounter()->getValue() == 10) {
 			Revolver* r = new Revolver();
-			r->setPosition(this->getPosition());
+			df::Vector v = this->getPosition();
+			v.setY(v.getY() + 3);
+			r->setPosition(v);
 		}
 	}
 	srand(time(NULL));
@@ -60,6 +62,10 @@ Zombie::~Zombie() {
 		s->setPosition(this->getPosition());
 		LM.writeLog("MADE A SPEED");
 	}
+
+	// Create an explosion.
+	Explosion* p_explosion = new Explosion;
+	p_explosion->setPosition(this->getPosition());
 }
 
 void Zombie::determinePosition() {
@@ -200,10 +206,6 @@ int Zombie::hit(const df::EventCollision* p_c) {
 	if ((p_c->getObject1()->getType() == "bullet") ||
 		(p_c->getObject2()->getType() == "bullet")) {
 
-		// Create an explosion.
-		Explosion* p_explosion = new Explosion;
-		p_explosion->setPosition(this->getPosition());
-
 		//Spawn new zombie
 		new Zombie();
 
@@ -222,7 +224,12 @@ int Zombie::hit(const df::EventCollision* p_c) {
 // If can see Hero and can sense Hero, return direction
 // else return (0,0).
 df::Vector Zombie::seeHero() {
-	df::Vector dir = getPosition() - p_hero->getPosition();
-	dir.normalize();
-	return dir;
+	if (p_hero) {
+		df::Vector dir = getPosition() - p_hero->getPosition();
+		dir.normalize();
+		return dir;
+	}
+	else {
+		return df::Vector(0, 0);
+	}
 }

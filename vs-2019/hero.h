@@ -26,12 +26,13 @@ private:
 	int fire_countdown;
 	int nuke_count;
 	Reticle* p_reticle;
-	df::Vector HERO_SPEED = df::Vector(0.33f, 0.15f);
+	df::Vector hero_speed;
 
 public:
 	Hero();
 	~Hero();
 	int eventHandler(const df::Event* p_e);
 	bool isFacingRight();
+	void resetPowerups();
 };
 #endif 

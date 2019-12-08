@@ -158,6 +158,7 @@
     <ClInclude Include="explosion.h" />
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="gameStart.h" />
+    <ClInclude Include="Gate.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="hero.h" />
     <ClInclude Include="KillCounter.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameStart.cpp" />
+    <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="KillCounter.cpp" />

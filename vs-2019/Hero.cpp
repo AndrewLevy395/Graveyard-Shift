@@ -11,6 +11,10 @@
 #include "EventView.h"
 #include "WorldManager.h"
 
+
+#define BASE_FIRE_SLOWDOWN 10;
+#define BASE_HERO_SPEED df::Vector(0.33f, 0.15f);
+
 Hero::Hero() {
 	// Link to "hero" sprite.
 	setSprite("hero-r");
@@ -32,8 +36,10 @@ Hero::Hero() {
 	move_slowdown = 2;
 	move_countdown = move_slowdown;
 
-	fire_slowdown = 10;
+	fire_slowdown = BASE_FIRE_SLOWDOWN;
 	fire_countdown = fire_slowdown;
+
+	hero_speed = BASE_HERO_SPEED;
 
 	// Create reticle for firing bullets.
 	p_reticle = new Reticle();
@@ -128,11 +134,11 @@ void Hero::hit(const df::EventCollision* p_c) {
 
 	if (p_c->getObject1()->getType() == "SpeedItem") {
 		WM.markForDelete(p_c->getObject1());
-		HERO_SPEED = df::Vector(0.50f, 0.25f);
+		hero_speed = df::Vector(0.50f, 0.25f);
 	}
 	else if (p_c->getObject2()->getType() == "SpeedItem") {
 		WM.markForDelete(p_c->getObject2());
-		HERO_SPEED = df::Vector(0.50f, 0.25f);
+		hero_speed = df::Vector(0.50f, 0.25f);
 	}
 
 }
@@ -166,7 +172,7 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 	case df::Keyboard::W:
 		if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED || 
 			p_keyboard_event->getKeyboardAction() == df::KEY_DOWN) {
-			df::Vector v(getVelocity().getX(), -HERO_SPEED.getY());
+			df::Vector v(getVelocity().getX(), -hero_speed.getY());
 			setVelocity(v);
 		}
 		else if (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED) {
@@ -177,7 +183,7 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 	case df::Keyboard::S:
 		if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED || 
 			p_keyboard_event->getKeyboardAction() == df::KEY_DOWN) {
-			df::Vector v(getVelocity().getX(), HERO_SPEED.getY());
+			df::Vector v(getVelocity().getX(), hero_speed.getY());
 			setVelocity(v);
 		}
 		else if (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED) {
@@ -189,7 +195,7 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 		if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED || 
 			p_keyboard_event->getKeyboardAction() == df::KEY_DOWN) {
 			setFacingRight(false);
-			df::Vector v(-HERO_SPEED.getX(), getVelocity().getY());
+			df::Vector v(-hero_speed.getX(), getVelocity().getY());
 			setVelocity(v);
 		}
 		else if (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED) {
@@ -201,7 +207,7 @@ void Hero::kbd(const df::EventKeyboard* p_keyboard_event) {
 		if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED || 
 			p_keyboard_event->getKeyboardAction() == df::KEY_DOWN) {
 			setFacingRight(true);
-			df::Vector v(HERO_SPEED.getX(), getVelocity().getY());
+			df::Vector v(hero_speed.getX(), getVelocity().getY());
 			setVelocity(v);
 		}
 		else if (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED) {
@@ -271,5 +277,10 @@ void Hero::mouse(const df::EventMouse* p_mouse_event) {
 	if ((p_mouse_event->getMouseAction() == df::CLICKED) &&
 		(p_mouse_event->getMouseButton() == df::Mouse::LEFT))
 		fire(p_mouse_event->getMousePosition());
+}
+
+void Hero::resetPowerups() {
+	hero_speed = BASE_HERO_SPEED;
+	fire_slowdown = BASE_FIRE_SLOWDOWN;
 }
 

@@ -30,7 +30,7 @@ Boss::Boss() {
 	setType("Boss");
 	setSolidness(df::SOFT);
 	//Has HARD-like collisions with Soft Objects
-	setNoSoft(true);
+	//setNoSoft(true);
 	setAltitude(3);
 	setSpeed(0.25);
 
@@ -46,11 +46,14 @@ Boss::Boss() {
 
 	//determine the zombie's position
 	determinePosition();
+	DATA.removeAll("Zombie");
 
 }
 
 Boss::~Boss() {
-	GM.setGameOver();
+	//GM.setGameOver();
+	DATA.removeAll("Tombstone");
+	DATA.setGate();
 }
 
 void Boss::determinePosition() {

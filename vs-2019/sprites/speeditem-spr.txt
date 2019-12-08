@@ -1,14 +1,16 @@
 <HEADER>
-frames 1
-width 5
-height 3
-color white
-slowdown 5
+frames 3
+width 2
+height 1
+color blue
+slowdown 4
 </HEADER>
 <BODY>
- ___ 
-(RIP)
-|___|
+rr
+end
+-r
+end
+r-
 end
 </BODY>
 <FOOTER>
