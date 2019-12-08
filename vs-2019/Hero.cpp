@@ -1,6 +1,5 @@
 #include "hero.h"
 #include "gameOver.h"
-#include "eventNuke.h"
 #include "bullet.h"
 #include "EventMouse.h"
 #include "EventStep.h"
@@ -103,25 +102,23 @@ int Hero::eventHandler(const df::Event* p_e) {
 
 void Hero::hit(const df::EventCollision* p_c) {
 	if (p_c->getObject1()->getType() == "Zombie" ||
-		p_c->getObject2()->getType() == "Zombie")
-	{
+		p_c->getObject2()->getType() == "Zombie"){
 		// Send "view" event to Heath HUD indicating damage.
 		df::EventView ev("Health", -1, true);
 		WM.onEvent(&ev);
-	}
-	// If hit, increase speed.
-	if (p_c->getObject2()->getType() == "SpeedItem") {
-		WM.markForDelete(p_c->getObject2());
-		HERO_SPEED = df::Vector(0.50f, 0.25f);
 	}
 
-	if (p_c->getObject1()->getType() == "Boss" ||
-		p_c->getObject2()->getType() == "Boss")
-	{
-		// Send "view" event to Heath HUD indicating damage.
-		df::EventView ev("Health", -1, true);
-		WM.onEvent(&ev);
+	if (p_c->getObject1()->getType() == "Revolver"){
+		WM.markForDelete(p_c->getObject1());
+		//Get Firing Speed boost
+		fire_slowdown = 3;
 	}
+	else if (p_c->getObject2()->getType() == "Raaevolver") {
+		WM.markForDelete(p_c->getObject2());
+		//Get firing Speed Boost
+		fire_slowdown = 3;
+	}
+
 }
 
 // Start or stop animation.

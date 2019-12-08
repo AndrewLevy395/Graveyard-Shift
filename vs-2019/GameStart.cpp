@@ -60,13 +60,13 @@ void GameStart::start() {
 	}
 
 	// Setup heads-up display.
-	new KillCounter();	// kill count display
+	DATA.setKillCounter(new KillCounter());	// kill count display
 	new Health; // add health
 
 	df::ViewObject* p_vo = new df::ViewObject; // Kill Goal
 	p_vo->setLocation(df::TOP_CENTER);
 	p_vo->setViewString("KILL GOAL: ");
-	p_vo->setValue(15);
+	p_vo->setValue(25);
 	p_vo->setColor(df::YELLOW);
 	DATA.setGoalObject(p_vo);
 
@@ -91,8 +91,15 @@ void GameStart::start() {
 
 	// When game starts, become inactive.
 	setActive(false);
+
+
 	// Pause start music.
-	p_music->pause();
+	p_music->stop(); //->pause();
+
+	//Set and play the level music
+	df::Music* l_music = RM.getMusic("level music");
+	DATA.setLevelMusic(l_music);
+	l_music->play();
 }
 
 // Override default draw so as not to display "value".

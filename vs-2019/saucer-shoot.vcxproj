@@ -155,7 +155,6 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="DataManager.h" />
-    <ClInclude Include="eventNuke.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="gameStart.h" />
@@ -164,8 +163,7 @@
     <ClInclude Include="KillCounter.h" />
     <ClInclude Include="LargeTombStone.h" />
     <ClInclude Include="reticle.h" />
-    <ClInclude Include="SpeedItem.h" />
-    <ClInclude Include="star.h" />
+    <ClInclude Include="Revolver.h" />
     <ClInclude Include="Tombstone.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Zombie.h" />
@@ -175,7 +173,6 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="DataManager.cpp" />
-    <ClCompile Include="EventNuke.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameStart.cpp" />
@@ -184,8 +181,7 @@
     <ClCompile Include="KillCounter.cpp" />
     <ClCompile Include="LargeTombstone.cpp" />
     <ClCompile Include="Reticle.cpp" />
-    <ClCompile Include="SpeedItem.cpp" />
-    <ClCompile Include="Star.cpp" />
+    <ClCompile Include="Revolver.cpp" />
     <ClCompile Include="Tombstone.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Zombie.cpp" />

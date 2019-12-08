@@ -4,7 +4,6 @@
 #include "ResourceManager.h"
 #include "WorldManager.h"
 #include "vs-2019/hero.h"
-#include "vs-2019/star.h"
 #include "vs-2019/gameStart.h"
 #include "Object.h"
 #include "vs-2019/Tombstone.h"
@@ -22,22 +21,22 @@ void loadResources(void) {
 	RM.loadSprite("sprites/zombie-r-spr.txt", "zombie-r");
 	RM.loadSprite("sprites/zombie-l-spr.txt", "zombie-l");
 	RM.loadSprite("sprites/zombie-boss-r-spr.txt", "zombie-boss-r");
-	RM.loadSprite("sprites/hero-l-spr.txt", "hero-l");
+	RM.loadSprite("sprites/zombie-boss-l-spr.txt", "zombie-boss-l");
 	RM.loadSprite("sprites/hero-r-spr.txt", "hero-r");
-	RM.loadSprite("sprites/cluster-spr.txt", "bullet");
-	RM.loadSprite("sprites/cluster-spr.txt", "cluster");
+	RM.loadSprite("sprites/hero-l-spr.txt", "hero-l");
+	RM.loadSprite("sprites/bullet-spr.txt", "bullet");
 	RM.loadSprite("sprites/explosion-spr.txt", "explosion");
 	RM.loadSprite("sprites/gameover-spr.txt", "GameOver");
 	RM.loadSprite("sprites/gamestart-spr.txt", "GameStart");
 	RM.loadSprite("sprites/tombstone-spr.txt", "tombstone");
-	RM.loadSprite("sprites/saucer-spr.txt", "saucer");
+	RM.loadSprite("sprites/revolver-spr.txt", "revolver");
 	RM.loadSprite("sprites/tombstone-large-spr.txt", "tombstone-large");
 	RM.loadSound("sounds/fire.wav", "fire");
 	RM.loadSound("sounds/explode.wav", "explode");
 	RM.loadSound("sounds/scream.wav", "scream");
-	RM.loadSound("sounds/nuke.wav", "nuke");
 	RM.loadSound("sounds/game-over.wav", "game over");
 	RM.loadMusic("sounds/start-music.wav", "start music");
+	RM.loadMusic("sounds/bgmusic.wav", "level music"); //music for the level
 }
 
 int main(int argc, char* argv[]) {
