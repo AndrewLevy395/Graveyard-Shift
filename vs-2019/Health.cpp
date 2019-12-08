@@ -13,13 +13,12 @@ Health::Health() {
 	setViewString(HEALTH_STRING);
 	setColor(df::YELLOW);
 	setLocation(df::TOP_LEFT);
-	setValue(100);
+	setValue(150);
 }
 
 // Handle event.
 // Return 0 if ignored, else 1.
 int Health::eventHandler(const df::Event* p_e) {
-
 	// Call parent handler.
 	if (df::ViewObject::eventHandler(p_e)) {
 		if (getValue() < 1)

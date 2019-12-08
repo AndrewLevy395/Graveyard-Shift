@@ -93,7 +93,22 @@ int Hero::eventHandler(const df::Event* p_e) {
 		mouse(p_mouse_event);
 		return 1;
 	}
+	if (p_e->getType() == df::COLLISION_EVENT){
+		const df::EventCollision* p_collision_event = (const df::EventCollision*)(p_e);
+		hit(p_collision_event);
+		return 1;
+	}
 	return 0;
+}
+
+void Hero::hit(const df::EventCollision* p_c) {
+	if (p_c->getObject1()->getType() == "Zombie" ||
+		p_c->getObject2()->getType() == "Zombie")
+	{
+		// Send "view" event to Heath HUD indicating damage.
+		df::EventView ev("Health", -1, true);
+		WM.onEvent(&ev);
+	}
 }
 
 // Start or stop animation.
@@ -232,24 +247,3 @@ void Hero::mouse(const df::EventMouse* p_mouse_event) {
 		fire(p_mouse_event->getMousePosition());
 }
 
-void Hero::nuke() {
-	// Check if nukes left.
-	if (!nuke_count)
-		return;
-	nuke_count--;
-
-	// Create "nuke" event and send to interested Objects.
-	EventNuke nuke;
-	WM.onEvent(&nuke);
-
-	// Send "view" event with nukes to interested ViewObjects.
-	df::EventView ev("Nukes", -1, true);
-	WM.onEvent(&ev);
-
-	// Play "nuke" sound.
-	df::Sound* p_sound = RM.getSound("nuke");
-	p_sound->play();
-
-	//Add screenshake
-	DM.shake(15, 15, 5);
-}

@@ -1,6 +1,7 @@
 #ifndef __HERO__
 #define __HERO__
 #include "EventKeyboard.h"
+#include "EventCollision.h"
 #include "EventMouse.h"
 #include "Object.h"
 #include "reticle.h"
@@ -14,10 +15,10 @@ private:
 	void kbd(const df::EventKeyboard* p_keyboard_event);
 	void move(int dy);
 	void step();
-	void nuke();
 	void mouse(const df::EventMouse* p_mouse_event);
 	void fire(df::Vector target);
 	void setFacingRight(bool is_right);
+	void hit(const df::EventCollision* p_c);
 	bool facingRight;
 	int move_slowdown;
 	int move_countdown;
