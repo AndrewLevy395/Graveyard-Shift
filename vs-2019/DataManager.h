@@ -3,6 +3,7 @@
 #include "Manager.h"
 #include "ViewObject.h"
 #include "hero.h"
+#include "Music.h"
 #include <string.h>
 
 #define DATA DataManager::getInstance()
@@ -16,6 +17,8 @@ private:
 	void operator=(DataManager const&);
 	Hero* p_hero;
 	df::ViewObject* goal;
+	df::Music* level_music;
+	df::ViewObject* kill_counter;
 
 public:
 	// Get the one and only instance of the InputManager.
@@ -43,6 +46,14 @@ public:
 	void setOnlyGoalMessage(std::string);
 
 	void placeObject(df::Object* p_o);
+
+	void setLevelMusic(df::Music* music);
+
+	df::Music* getLevelMusic();
+
+	void setKillCounter(df::ViewObject* kc);
+
+	df::ViewObject* getKillCounter();
 };
 
 #endif
