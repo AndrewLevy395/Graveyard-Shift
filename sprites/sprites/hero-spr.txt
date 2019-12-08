@@ -1,0 +1,20 @@
+<HEADER>
+frames 2
+width 3
+height 3
+color blue
+slowdown 4
+</HEADER>
+<BODY>
+ O 
+{|}
+ | 
+end
+ O 
+(|)
+/ \
+end
+</BODY>
+<FOOTER>
+version 1
+</FOOTER>

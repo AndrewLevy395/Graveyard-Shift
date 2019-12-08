@@ -18,6 +18,7 @@
 #include "KillCounter.h"
 #include "explosion.h"
 #include "Revolver.h"
+#include "SpeedItem.h"
 
 Zombie::Zombie(){
 
@@ -49,6 +50,13 @@ Zombie::~Zombie() {
 	if (DATA.getKillCounter()->getValue() == 10) {
 		Revolver* r = new Revolver();
 		r->setPosition(this->getPosition());
+	}
+	srand(time(NULL));
+	int randNum = rand() % 20 + 1;
+	if (randNum == 5) {
+		SpeedItem* s = new SpeedItem();
+		s->setPosition(this->getPosition());
+		LM.writeLog("MADE A SPEED");
 	}
 }
 
