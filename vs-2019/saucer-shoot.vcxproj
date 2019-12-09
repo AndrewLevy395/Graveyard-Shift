@@ -156,6 +156,7 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="explosion.h" />
+    <ClInclude Include="Frenzy.h" />
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="gameStart.h" />
     <ClInclude Include="Gate.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="Frenzy.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameStart.cpp" />
     <ClCompile Include="Gate.cpp" />

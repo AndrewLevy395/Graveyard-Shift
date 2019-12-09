@@ -18,10 +18,13 @@
 #include "SpeedItem.h"
 #include "Glob.h"
 
+#define BASE_SHOOT_COUNTDOWN 70;
+#define PLANT_SENSE_RANGE 20;
+
 Plant::Plant(df::Vector position) {
 
 	// Basic plant attributes.
-	shoot_countdown = 10;
+	shoot_countdown = BASE_SHOOT_COUNTDOWN;
 	m_think_countdown = 0;
 	setType("Plant");
 	setSolidness(df::HARD);
@@ -98,25 +101,22 @@ void Plant::spit() {
 	if (shoot_countdown == 0) {
 		df::Vector s = seeHero();
 		if (s.getX() || s.getY()) {
-			Glob* g = new Glob();
+			Glob* g = new Glob(10);
 			g->setPosition(this->getPosition());
-
 			df::Vector movement = df::Vector(-s.getX(), -s.getY());
 			movement.normalize();
-			//movement.scale(ZOMBIE_SPEED_CHASE);
-
 			//reduce vertical movement to match horizontal movement
 			movement.setY(movement.getY() * 0.55);
 			g->setVelocity(movement);
-
-
-
-			//g->setVelocity(s);
-			shoot_countdown = 10;
+			shoot_countdown = BASE_SHOOT_COUNTDOWN;
+			setSprite("plant-recharge");
 		}
 	}
 	else {
 		shoot_countdown--;
+		if (shoot_countdown == 0) {
+			setSprite("plant");
+		}
 	}
 }
 
@@ -147,6 +147,13 @@ int Plant::hit(const df::EventCollision* p_c) {
 // else return (0,0).
 df::Vector Plant::seeHero() {
 
+	//check if hero is in range
+	int diffX = p_hero->getPosition().getX() - this->getPosition().getX();
+	int diffY = p_hero->getPosition().getY() - this->getPosition().getY();
+	int distance = sqrt((diffX * diffX) + (diffY * diffY));
+	bool inRange = distance <= PLANT_SENSE_RANGE;
+
+
 	//Returns a line between the plant's position and the hero's
 	df::Line sight_line(getPosition(), p_hero->getPosition());
 
@@ -163,7 +170,7 @@ df::Vector Plant::seeHero() {
 	}
 
 	// If no wall found and in sense range, get direction of hero
-	if (!found) {
+	if (!found && inRange) {
 		df::Vector dir = getPosition() - p_hero->getPosition();
 		dir.normalize();
 		return dir;

@@ -4,6 +4,7 @@
 #include "Gate.h"
 #include "Wall.h"
 #include "Plant.h"
+#include "Frenzy.h"
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -45,6 +46,7 @@ void DataManager::transitionToNextLevel() {
 		removeAll("Gate");
 		placeLevel2Walls();
 		placeLevel2Enemies(true);
+		setGoalContent("Collect Gas Canisters", 4);
 	}
 	
 }
@@ -153,7 +155,7 @@ void DataManager::placeLevel2Walls() {
 
 	//Top center////////////////////////////////
 	df::Vector ts(w / 2.0f, farFromTop-2.0f);
-	wall = new Wall(20, 1);
+	wall = new Wall(22, 1);
 	wall->setPosition(ts);
 
 	//top right//////////////////////////////////
@@ -165,6 +167,10 @@ void DataManager::placeLevel2Walls() {
 	wall = new Wall(1, 4);
 	wall->setPosition(tr_2);
 
+	//right center/////////////////////////////////
+	df::Vector rc(farFromRight, h/2.0f); //side
+	wall = new Wall(1, 2);
+	wall->setPosition(rc);
 
 	//bot right///////////////////////////////////
 	df::Vector br_1(farFromRight + 3.0f, farFromBot); //bottom
@@ -178,7 +184,7 @@ void DataManager::placeLevel2Walls() {
 
 	//Bot center////////////////////////////////
 	df::Vector bs(w / 2.0f, farFromBot+2.0f);
-	wall = new Wall(20, 1);
+	wall = new Wall(22, 1);
 	wall->setPosition(bs);
 
 	//bot left////////////////////////////////////
@@ -201,4 +207,5 @@ void DataManager::placeLevel2Enemies(bool atGenerator) {
 	new Plant(df::Vector(4, h-3));
 	new Plant(df::Vector(w-4, h-3));
 
+	new Frenzy();
 }

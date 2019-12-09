@@ -7,19 +7,18 @@
 #include "EventStep.h"
 #include "hero.h"
 
-Glob::Glob() {
+Glob::Glob(int num_damage) {
 
-	setSprite("bullet");
+	setSprite("glob");
 	setType("glob");
-	// Set starting location, based on hero's position passed in.
-	//setVelocity(to_hero);
 
-	// Bullets move 1 space each game loop.
- // The direction is set when the Hero fires.
-	setSpeed(1);
+	// Glob move 0.5 space each game loop.
+	setSpeed(0.5);
 
-	// Make the globs soft so can pass through Hero.
+	// Make the globs soft so can pass through Plant.
 	setSolidness(df::SOFT);
+
+	damage = num_damage;
 }
 
 int Glob::eventHandler(const df::Event* p_e) {
@@ -56,4 +55,8 @@ void Glob::hit(const df::EventCollision* p_collision_event) {
 			WM.markForDelete(p_collision_event->getObject2());
 		}
 	}
+}
+
+int Glob::getDamage() {
+	return damage;
 }

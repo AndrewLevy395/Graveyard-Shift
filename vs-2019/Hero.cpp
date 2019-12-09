@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 #include "EventView.h"
 #include "WorldManager.h"
+#include "Glob.h"
 
 
 #define BASE_FIRE_SLOWDOWN 10;
@@ -119,6 +120,21 @@ void Hero::hit(const df::EventCollision* p_c) {
 		// Send "view" event to Heath HUD indicating damage.
 		df::EventView ev("Health", -1, true);
 		WM.onEvent(&ev);
+	}
+
+	if (p_c->getObject1()->getType() == "glob"){
+		Glob* glob = (Glob*)(p_c->getObject1());
+		// Send "view" event to Heath HUD indicating damage.
+		df::EventView ev("Health", -glob->getDamage(), true);
+		WM.onEvent(&ev);
+		WM.markForDelete(p_c->getObject1());
+	}
+	else if(p_c->getObject2()->getType() == "glob") {
+		Glob* glob = (Glob*)(p_c->getObject2());
+		df::EventView ev("Health", -glob->getDamage(), true);
+		WM.onEvent(&ev);
+		WM.markForDelete(p_c->getObject2());
+
 	}
 
 	if (p_c->getObject1()->getType() == "Revolver"){
