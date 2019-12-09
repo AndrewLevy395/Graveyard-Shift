@@ -66,7 +66,7 @@ void GameStart::start() {
 	df::ViewObject* p_vo = new df::ViewObject; // Kill Goal
 	p_vo->setLocation(df::TOP_CENTER);
 	p_vo->setViewString("KILL GOAL: ");
-	p_vo->setValue(15);
+	p_vo->setValue(5);
 	p_vo->setColor(df::YELLOW);
 	DATA.setGoalObject(p_vo);
 

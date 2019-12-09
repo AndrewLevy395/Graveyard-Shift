@@ -66,6 +66,12 @@
     <ClInclude Include="Gate.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Plant.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Glob.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game.cpp">
@@ -120,6 +126,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Gate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Plant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Glob.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

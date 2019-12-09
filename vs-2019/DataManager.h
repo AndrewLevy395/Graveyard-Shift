@@ -21,6 +21,9 @@ private:
 	df::Music* level_music;
 	df::ViewObject* kill_counter;
 
+	void placeLevel2Walls();
+	void placeLevel2Enemies(bool atGenerator);
+
 public:
 	// Get the one and only instance of the InputManager.
 	static DataManager& getInstance();

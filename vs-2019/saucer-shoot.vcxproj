@@ -159,10 +159,12 @@
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="gameStart.h" />
     <ClInclude Include="Gate.h" />
+    <ClInclude Include="Glob.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="hero.h" />
     <ClInclude Include="KillCounter.h" />
     <ClInclude Include="LargeTombStone.h" />
+    <ClInclude Include="Plant.h" />
     <ClInclude Include="reticle.h" />
     <ClInclude Include="Revolver.h" />
     <ClInclude Include="SpeedItem.h" />
@@ -179,10 +181,12 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameStart.cpp" />
     <ClCompile Include="Gate.cpp" />
+    <ClCompile Include="Glob.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="KillCounter.cpp" />
     <ClCompile Include="LargeTombstone.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Revolver.cpp" />
     <ClCompile Include="SpeedItem.cpp" />

@@ -29,6 +29,7 @@ void loadResources(void) {
 	RM.loadSprite("sprites/gameover-spr.txt", "GameOver");
 	RM.loadSprite("sprites/gamestart-spr.txt", "GameStart");
 	RM.loadSprite("sprites/tombstone-spr.txt", "tombstone");
+	RM.loadSprite("sprites/plant-spr.txt", "plant");
 	RM.loadSprite("sprites/revolver-spr.txt", "revolver");
 	RM.loadSprite("sprites/speeditem-spr.txt", "speeditem");
 	RM.loadSprite("sprites/gate-spr.txt", "gate");

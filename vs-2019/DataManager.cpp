@@ -2,6 +2,8 @@
 #include "WorldManager.h"
 #include "Music.h"
 #include "Gate.h"
+#include "Wall.h"
+#include "Plant.h"
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -41,6 +43,8 @@ void DataManager::transitionToNextLevel() {
 		p_hero->setPosition(p);
 		p_hero->resetPowerups();
 		removeAll("Gate");
+		placeLevel2Walls();
+		placeLevel2Enemies(true);
 	}
 	
 }
@@ -126,4 +130,75 @@ void DataManager::setKillCounter(df::ViewObject* kc) {
 
 df::ViewObject* DataManager::getKillCounter() {
 	return kill_counter;
+}
+
+void DataManager::placeLevel2Walls() {
+	Wall* wall;
+	float w = WM.getBoundary().getHorizontal();
+	float h = WM.getBoundary().getVertical();
+
+	float farFromLeft = w * (0.20f);
+	float farFromRight = w * (0.8f);
+	float farFromTop = h * (0.3f);
+	float farFromBot = h * (0.7f);
+
+	//top left///////////////////////////////////
+	df::Vector tl_1(farFromLeft / 2.0f, farFromTop); //bottom
+	wall = new Wall(farFromLeft, 1);
+	wall->setPosition(tl_1);
+
+	df::Vector tl_2(farFromLeft, farFromTop); //side
+	wall = new Wall(1, 4);
+	wall->setPosition(tl_2);
+
+	//Top center////////////////////////////////
+	df::Vector ts(w / 2.0f, farFromTop-2.0f);
+	wall = new Wall(20, 1);
+	wall->setPosition(ts);
+
+	//top right//////////////////////////////////
+	df::Vector tr_1(farFromRight + 3.0f, farFromTop); //bottom
+	wall = new Wall(6, 1);
+	wall->setPosition(tr_1);
+
+	df::Vector tr_2(farFromRight, farFromTop); //side
+	wall = new Wall(1, 4);
+	wall->setPosition(tr_2);
+
+
+	//bot right///////////////////////////////////
+	df::Vector br_1(farFromRight + 3.0f, farFromBot); //bottom
+	wall = new Wall(6, 1);
+	wall->setPosition(br_1);
+
+	df::Vector br_2(farFromRight, farFromBot); //side
+	wall = new Wall(1, 4);
+	wall->setPosition(br_2);
+
+
+	//Bot center////////////////////////////////
+	df::Vector bs(w / 2.0f, farFromBot+2.0f);
+	wall = new Wall(20, 1);
+	wall->setPosition(bs);
+
+	//bot left////////////////////////////////////
+	df::Vector bl_1(farFromLeft / 2.0f, farFromBot); //bottom
+	wall = new Wall(farFromLeft, 1);
+	wall->setPosition(bl_1);
+
+	df::Vector bl_2(farFromLeft, farFromBot); //side
+	wall = new Wall(1, 4);
+	wall->setPosition(bl_2);
+}
+
+void DataManager::placeLevel2Enemies(bool atGenerator) {
+	float w = WM.getBoundary().getHorizontal();
+	float h = WM.getBoundary().getVertical();
+	if (atGenerator) {
+		new Plant(df::Vector(4, 3));
+	}
+	new Plant(df::Vector(w-4, 3));
+	new Plant(df::Vector(4, h-3));
+	new Plant(df::Vector(w-4, h-3));
+
 }
