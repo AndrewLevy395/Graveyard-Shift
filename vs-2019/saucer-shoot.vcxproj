@@ -159,7 +159,9 @@
     <ClInclude Include="Frenzy.h" />
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="gameStart.h" />
+    <ClInclude Include="Gas.h" />
     <ClInclude Include="Gate.h" />
+    <ClInclude Include="Generator.h" />
     <ClInclude Include="Glob.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="HealthItem.h" />
@@ -183,7 +185,9 @@
     <ClCompile Include="Frenzy.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameStart.cpp" />
+    <ClCompile Include="Gas.cpp" />
     <ClCompile Include="Gate.cpp" />
+    <ClCompile Include="Generator.cpp" />
     <ClCompile Include="Glob.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="HealthItem.cpp" />

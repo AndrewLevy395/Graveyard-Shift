@@ -75,7 +75,10 @@
     <ClInclude Include="Frenzy.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="HealthItem.h">
+    <ClInclude Include="Gas.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Generator.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,7 +146,10 @@
     <ClCompile Include="Frenzy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HealthItem.cpp">
+    <ClCompile Include="Gas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Generator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
