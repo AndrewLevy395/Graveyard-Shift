@@ -162,6 +162,7 @@
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Glob.h" />
     <ClInclude Include="Health.h" />
+    <ClInclude Include="HealthItem.h" />
     <ClInclude Include="hero.h" />
     <ClInclude Include="KillCounter.h" />
     <ClInclude Include="LargeTombStone.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Glob.cpp" />
     <ClCompile Include="Health.cpp" />
+    <ClCompile Include="HealthItem.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="KillCounter.cpp" />
     <ClCompile Include="LargeTombstone.cpp" />

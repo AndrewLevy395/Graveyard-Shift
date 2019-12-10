@@ -19,6 +19,7 @@
 #include "explosion.h"
 #include "Revolver.h"
 #include "SpeedItem.h"
+#include "HealthItem.h"
 
 Zombie::Zombie(){
 
@@ -53,14 +54,18 @@ Zombie::~Zombie() {
 			df::Vector v = this->getPosition();
 			v.setY(v.getY() + 3);
 			r->setPosition(v);
+		} 
+		if (DATA.getKillCounter()->getValue() == 20) {
+			SpeedItem* s = new SpeedItem();
+			s->setPosition(this->getPosition());
 		}
 	}
 	srand(time(NULL));
 	int randNum = rand() % 20 + 1;
-	if (randNum == 5) {
-		SpeedItem* s = new SpeedItem();
-		s->setPosition(this->getPosition());
-		LM.writeLog("MADE A SPEED");
+	if (randNum == 10) {
+		HealthItem* h = new HealthItem();
+		h->setPosition(this->getPosition());
+		LM.writeLog("MADE A HEALTH");
 	}
 
 	// Create an explosion.

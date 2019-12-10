@@ -157,6 +157,17 @@ void Hero::hit(const df::EventCollision* p_c) {
 		hero_speed = df::Vector(0.50f, 0.25f);
 	}
 
+	if (p_c->getObject1()->getType() == "HealthItem") {
+		WM.markForDelete(p_c->getObject1());
+		df::EventView ev("Health", 50, true);
+		WM.onEvent(&ev);
+	}
+	else if (p_c->getObject2()->getType() == "HealthItem") {
+		WM.markForDelete(p_c->getObject2());
+		df::EventView ev("Health", 50, true);
+		WM.onEvent(&ev);
+	}
+
 }
 
 // Start or stop animation.
