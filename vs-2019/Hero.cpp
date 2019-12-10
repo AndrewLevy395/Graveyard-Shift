@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 #include "EventView.h"
 #include "WorldManager.h"
+#include "DataManager.h"
 #include "Glob.h"
 
 
@@ -155,6 +156,15 @@ void Hero::hit(const df::EventCollision* p_c) {
 	else if (p_c->getObject2()->getType() == "SpeedItem") {
 		WM.markForDelete(p_c->getObject2());
 		hero_speed = df::Vector(0.50f, 0.25f);
+	}
+
+	if (p_c->getObject1()->getType() == "gas") {
+		WM.markForDelete(p_c->getObject1());
+		DATA.addGas();
+	}
+	else if (p_c->getObject2()->getType() == "gas") {
+		WM.markForDelete(p_c->getObject2());
+		DATA.addGas();
 	}
 
 }

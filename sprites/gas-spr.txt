@@ -1,0 +1,15 @@
+<HEADER>
+frames 1
+width 3
+height 2
+color red
+slowdown 5
+</HEADER>
+<BODY>
+ _/
+|X|
+end
+</BODY>
+<FOOTER>
+version 1
+</FOOTER>

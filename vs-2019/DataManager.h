@@ -16,15 +16,19 @@ private:
 	DataManager(DataManager const&);
 	void operator=(DataManager const&);
 	int current_level;
+	int numGas;
 	Hero* p_hero;
 	df::ViewObject* goal;
 	df::Music* level_music;
 	df::ViewObject* kill_counter;
 
-	void placeLevel2Walls();
-	void placeLevel2Enemies(bool atGenerator);
+	//places the objects for level 2
+	void placeLevel2Objects();
 
 public:
+	//places the enemies for level 2
+	void placeLevel2Enemies(bool atGenerator);
+
 	// Get the one and only instance of the InputManager.
 	static DataManager& getInstance();
 
@@ -67,6 +71,10 @@ public:
 	void setKillCounter(df::ViewObject* kc);
 
 	df::ViewObject* getKillCounter();
+
+	void addGas();
+
+	int getNumGas();
 };
 
 #endif

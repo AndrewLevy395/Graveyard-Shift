@@ -1,10 +1,13 @@
 #include "DataManager.h"
 #include "WorldManager.h"
+#include "GameManager.h"
 #include "Music.h"
 #include "Gate.h"
 #include "Wall.h"
 #include "Plant.h"
 #include "Frenzy.h"
+#include "Gas.h"
+#include "Generator.h"
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -15,6 +18,7 @@ DataManager::DataManager() {
 	level_music;
 	current_level = 1;
 	setType("DataManager");
+	numGas = 0;
 }
 
 int DataManager::startUp() {
@@ -38,15 +42,17 @@ void DataManager::removeAll(std::string type) {
 
 void DataManager::transitionToNextLevel() {
 	if (current_level == 1) {
-
 		current_level = 2;
 		df::Vector p(7, WM.getBoundary().getVertical() / 2);
 		p_hero->setPosition(p);
 		p_hero->resetPowerups();
 		removeAll("Gate");
-		placeLevel2Walls();
+		placeLevel2Objects();
 		placeLevel2Enemies(true);
-		setGoalContent("Collect Gas Canisters", 4);
+		setGoalContent("Collect Gas Canisters:", 3);
+	}
+	else if (current_level == 2) {
+		GM.setGameOver(true);
 	}
 	
 }
@@ -134,7 +140,7 @@ df::ViewObject* DataManager::getKillCounter() {
 	return kill_counter;
 }
 
-void DataManager::placeLevel2Walls() {
+void DataManager::placeLevel2Objects() {
 	Wall* wall;
 	float w = WM.getBoundary().getHorizontal();
 	float h = WM.getBoundary().getVertical();
@@ -195,17 +201,36 @@ void DataManager::placeLevel2Walls() {
 	df::Vector bl_2(farFromLeft, farFromBot); //side
 	wall = new Wall(1, 4);
 	wall->setPosition(bl_2);
+
+	//Place gas canisters
+	new Gas(df::Vector(farFromRight+2, farFromTop-2)); //top right
+	new Gas(df::Vector(farFromRight + 3, farFromBot + 2));//bot right
+	new Gas(df::Vector(farFromLeft - 3, farFromBot + 2)); //bot left
+
+	new Generator(df::Vector(5, 5));
+
+
 }
 
 void DataManager::placeLevel2Enemies(bool atGenerator) {
 	float w = WM.getBoundary().getHorizontal();
 	float h = WM.getBoundary().getVertical();
 	if (atGenerator) {
-		new Plant(df::Vector(4, 3));
+		new Plant(df::Vector(8, 3));
 	}
 	new Plant(df::Vector(w-4, 3));
-	new Plant(df::Vector(4, h-3));
+	new Plant(df::Vector(14, h-3));
 	new Plant(df::Vector(w-4, h-3));
+	//new Plant(df::Vector(w / 2, h / 2));
+}
 
-	new Frenzy();
+void DataManager::addGas() {
+	numGas++;
+	if (numGas == 3) {
+		setOnlyGoalMessage("Place the gas in the generator");
+	}
+}
+
+int DataManager::getNumGas() {
+	return numGas;
 }

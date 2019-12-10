@@ -15,6 +15,8 @@
 #include "LargeTombStone.h"
 #include "SpeedItem.h"
 
+#define LEVEL_ONE_KILL_GOAL 25
+
 GameStart::GameStart() {
 	// Put in center of window.
 	setLocation(df::CENTER_CENTER);
@@ -66,7 +68,7 @@ void GameStart::start() {
 	df::ViewObject* p_vo = new df::ViewObject; // Kill Goal
 	p_vo->setLocation(df::TOP_CENTER);
 	p_vo->setViewString("KILL GOAL: ");
-	p_vo->setValue(5);
+	p_vo->setValue(LEVEL_ONE_KILL_GOAL);
 	p_vo->setColor(df::YELLOW);
 	DATA.setGoalObject(p_vo);
 
