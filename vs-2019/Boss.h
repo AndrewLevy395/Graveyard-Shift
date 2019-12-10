@@ -22,7 +22,6 @@ private:
 	int health;
 	enum direction_type direction;
 	bool facingRight;
-	void determinePosition();
 	void setChase();
 	int hit(const df::EventCollision* p_c);
 

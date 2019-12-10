@@ -54,8 +54,8 @@ void GameStart::start() {
 
 	DATA.setHero(new Hero());
 
-	new LargeTombstone;
-	
+	LargeTombstone* Large = new LargeTombstone;
+	DATA.determinePosition(Large, 0);
 
 	for (int i = 0; i < NUM_ZOMBIES; i++) {
 		new Zombie;

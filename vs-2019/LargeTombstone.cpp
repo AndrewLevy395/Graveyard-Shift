@@ -4,6 +4,7 @@
 
 #include "LargeTombstone.h"
 #include "WorldManager.h"
+#include "DataManager.h"
 
 LargeTombstone::LargeTombstone() {
 	setType("LargeTombstone");
@@ -11,7 +12,6 @@ LargeTombstone::LargeTombstone() {
 	setNoSoft(true);
 	setSprite("tombstone-large");
 	LM.writeLog("large tombstone created");
-	determinePosition();
 }
 
 int LargeTombstone::eventHandler(const df::Event* e) {
@@ -34,17 +34,3 @@ int LargeTombstone::hit(const df::EventCollision* p_c) {
 	return 1;
 }
 
-void LargeTombstone::determinePosition() {
-	//Set the position of the zombie
-	float X = WM.getBoundary().getHorizontal() / 2;
-	float Y = WM.getBoundary().getVertical() / 2;
-	float xPos = X;
-	float yPos = Y;
-
-	LM.writeLog("xpos, ypos: %f, %f", xPos, yPos);
-
-	df::Vector final_position;
-	final_position.setXY(xPos, yPos);
-
-	setPosition(final_position);
-}

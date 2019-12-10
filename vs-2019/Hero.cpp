@@ -166,6 +166,16 @@ void Hero::hit(const df::EventCollision* p_c) {
 		WM.markForDelete(p_c->getObject2());
 		DATA.addGas();
 	}
+	if (p_c->getObject1()->getType() == "HealthItem") {
+		WM.markForDelete(p_c->getObject1());
+		df::EventView ev("Health", 50, true);
+		WM.onEvent(&ev);
+	}
+	else if (p_c->getObject2()->getType() == "HealthItem") {
+		WM.markForDelete(p_c->getObject2());
+		df::EventView ev("Health", 50, true);
+		WM.onEvent(&ev);
+	}
 
 }
 

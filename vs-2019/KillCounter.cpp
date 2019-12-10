@@ -23,6 +23,7 @@ int KillCounter::eventHandler(const df::Event* p_e) {
 		if (this->getValue() == DATA.getGoalObject()->getValue()) {
 			DATA.removeAll("Zombie");
 			DATA.setOnlyGoalMessage("DEFEAT THE BOSS!");
+			DATA.setBossCount(1);
 			new Boss;
 		}
 		return 1;

@@ -17,6 +17,7 @@ private:
 	void operator=(DataManager const&);
 	int current_level;
 	int numGas;
+	int bossCount;
 	Hero* p_hero;
 	df::ViewObject* goal;
 	df::Music* level_music;
@@ -24,6 +25,9 @@ private:
 
 	//places the objects for level 2
 	void placeLevel2Objects();
+
+	//places the objects for level 3
+	void placeLevel3Objects();
 
 public:
 	//places the enemies for level 2
@@ -60,6 +64,8 @@ public:
 
 	std::string getGoalString();
 
+	int getGoalCount();
+
 	void setOnlyGoalMessage(std::string);
 
 	void placeObject(df::Object* p_o);
@@ -75,6 +81,14 @@ public:
 	void addGas();
 
 	int getNumGas();
+
+	int getBossCount();
+
+	void setBossCount(int count);
+
+	int getCurrentLevel();
+
+	void determinePosition(df::Object* p_o, int position);
 };
 
 #endif

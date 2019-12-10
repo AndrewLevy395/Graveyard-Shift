@@ -7,7 +7,9 @@
 #include "Plant.h"
 #include "Frenzy.h"
 #include "Gas.h"
+#include "Boss.h"
 #include "Generator.h"
+#include "LargeTombStone.h"
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -41,19 +43,31 @@ void DataManager::removeAll(std::string type) {
 }
 
 void DataManager::transitionToNextLevel() {
-	if (current_level == 1) {
+	if (current_level == 3) {
+	GM.setGameOver(true);
+	}
+	else if (current_level == 2) {
+	current_level = 3;
+	df::Vector p(7, WM.getBoundary().getVertical() / 2);
+	p_hero->setPosition(p);
+	p_hero->resetPowerups();
+	removeAll("Gate");
+	placeLevel3Objects();
+	setGoalContent("Zombies Remaining:", 5);
+	}
+	else if (current_level == 1) {
 		current_level = 2;
 		df::Vector p(7, WM.getBoundary().getVertical() / 2);
 		p_hero->setPosition(p);
 		p_hero->resetPowerups();
 		removeAll("Gate");
+		removeAll("LargeTombstone");
 		placeLevel2Objects();
 		placeLevel2Enemies(true);
 		setGoalContent("Collect Gas Canisters:", 3);
 	}
-	else if (current_level == 2) {
-		GM.setGameOver(true);
-	}
+	
+	
 	
 }
 
@@ -94,6 +108,10 @@ void DataManager::setGoalContent(std::string message, int value) {
 
 std::string DataManager::getGoalString() {
 	return goal->getViewString();
+}
+
+int DataManager::getGoalCount() {
+	return goal->getValue();
 }
 
 void DataManager::setOnlyGoalMessage(std::string message) {
@@ -212,6 +230,32 @@ void DataManager::placeLevel2Objects() {
 
 }
 
+void DataManager::placeLevel3Objects() {
+
+	DATA.setBossCount(5);
+
+	Wall* wall;
+
+	LargeTombstone* Large0 = new LargeTombstone;
+	DATA.determinePosition(Large0, 0);
+
+	LargeTombstone* Large1 = new LargeTombstone;
+	DATA.determinePosition(Large1, 1);
+
+	LargeTombstone* Large2 = new LargeTombstone;
+	DATA.determinePosition(Large2, 2);
+
+	LargeTombstone* Large3 = new LargeTombstone;
+	DATA.determinePosition(Large3, 3);
+
+	LargeTombstone* Large4 = new LargeTombstone;
+	DATA.determinePosition(Large4, 4);
+
+	Boss* Boss0 = new Boss;
+	DATA.determinePosition(Boss0, 0);
+
+}
+
 void DataManager::placeLevel2Enemies(bool atGenerator) {
 	float w = WM.getBoundary().getHorizontal();
 	float h = WM.getBoundary().getVertical();
@@ -233,4 +277,46 @@ void DataManager::addGas() {
 
 int DataManager::getNumGas() {
 	return numGas;
+}
+
+int DataManager::getBossCount() {
+	return bossCount;
+}
+
+void DataManager::setBossCount(int count) {
+	bossCount = count;
+}
+
+void DataManager::determinePosition(df::Object* p_o, int position) {
+	//Set the position of the zombie
+	float X = WM.getBoundary().getHorizontal() / 2;
+	float Y = WM.getBoundary().getVertical() / 2;
+	if (position == 1) {
+		//Set the position of the zombie
+		X = WM.getBoundary().getHorizontal() / 4;
+		Y = WM.getBoundary().getVertical() / 4;
+	} else if (position == 2) {
+		//Set the position of the zombie
+		X = WM.getBoundary().getHorizontal() / 1.25;
+		Y = WM.getBoundary().getVertical() / 4;
+	} else if (position == 3) {
+		//Set the position of the zombie
+		X = WM.getBoundary().getHorizontal() / 4;
+		Y = WM.getBoundary().getVertical() / 1.4;
+	} else if (position == 4) {
+		//Set the position of the zombie
+		X = WM.getBoundary().getHorizontal() / 1.25;
+		Y = WM.getBoundary().getVertical() / 1.4;
+	}
+
+	LM.writeLog("xpos, ypos: %f, %f", X, Y);
+
+	df::Vector final_position;
+	final_position.setXY(X, Y);
+
+	p_o->setPosition(final_position);
+}
+
+int DataManager:: getCurrentLevel() {
+	return current_level;
 }

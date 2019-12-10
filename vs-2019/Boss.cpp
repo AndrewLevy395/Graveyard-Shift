@@ -12,6 +12,7 @@
 #include "DataManager.h"
 #include "GameManager.h"
 #include <stdlib.h> /* rand */
+#include "string.h"
 #include <time.h>
 #include "gameOver.h"
 
@@ -44,31 +45,37 @@ Boss::Boss() {
 	// Keeps track of hero.
 	p_hero = DATA.getHero();
 
-	//determine the zombie's position
-	determinePosition();
+	//remove all zombies
 	DATA.removeAll("Zombie");
 
+	//determine the zombie's position
+	DATA.determinePosition(this, 0);
 }
 
 Boss::~Boss() {
-	//GM.setGameOver();
 	DATA.removeAll("Tombstone");
-	DATA.setGate();
-}
+	DATA.setBossCount(DATA.getBossCount()-1);
 
-void Boss::determinePosition() {
-	//Set the position of the zombie
-	float X = WM.getBoundary().getHorizontal()/2;
-	float Y = WM.getBoundary().getVertical()/2;
-	float xPos = X;
-	float yPos = Y;
+	if (DATA.getBossCount() == 0) {
+		DATA.setGate();
+	}
+	else {
+		DATA.setGoalContent(DATA.getGoalString(), DATA.getGoalCount() - 1);
+	}
 
-	LM.writeLog("xpos, ypos: %f, %f", xPos, yPos);
-
-	df::Vector final_position;
-	final_position.setXY(xPos, yPos);
-
-	setPosition(final_position);
+	if (DATA.getBossCount() == 4) {
+		Boss* Boss1 = new Boss;
+		DATA.determinePosition(Boss1, 1);
+	} else if (DATA.getBossCount() == 3) {
+		Boss* Boss2 = new Boss;
+		DATA.determinePosition(Boss2, 2);
+	} else if (DATA.getBossCount() == 2) {
+		Boss* Boss3 = new Boss;
+		DATA.determinePosition(Boss3, 3);
+	} else if (DATA.getBossCount() == 1) {
+		Boss* Boss4 = new Boss;
+		DATA.determinePosition(Boss4, 4);
+	}
 }
 
 void Boss::setMoveCountdown(int new_move_countdown) {
@@ -148,10 +155,14 @@ void Boss::setChase() {
 int Boss::hit(const df::EventCollision* p_c) {
 	// If Bullet...
 
-	if (p_c->getObject1()->getType() == "Tombstone" || p_c->getObject1()->getType() == "LargeTombstone") {
-		WM.markForDelete(p_c->getObject1());
-	} else if (p_c->getObject2()->getType() == "Tombstone" || p_c->getObject2()->getType() == "LargeTombstone") {
-		WM.markForDelete(p_c->getObject2());
+	if (DATA.getCurrentLevel() == 1) {
+		LM.writeLog("CURRENT LEVEL: %d", DATA.getCurrentLevel());
+		if (p_c->getObject1()->getType() == "Tombstone" || p_c->getObject1()->getType() == "LargeTombstone") {
+			WM.markForDelete(p_c->getObject1());
+		}
+		else if (p_c->getObject2()->getType() == "Tombstone" || p_c->getObject2()->getType() == "LargeTombstone") {
+			WM.markForDelete(p_c->getObject2());
+		}
 	}
 
 	int bull_num;
