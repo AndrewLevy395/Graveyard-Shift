@@ -16,6 +16,7 @@ class Plant : public df::Object {
 
 private:
 	Hero* p_hero;
+	bool drop_speed;
 	int shoot_countdown;
 	int m_think_countdown;
 	void spit();
@@ -23,7 +24,7 @@ private:
 	df::Vector seeHero();
 
 public:
-	Plant(df::Vector position);
+	Plant(df::Vector position, bool should_drop_speed);
 	~Plant();
 	int eventHandler(const df::Event* e);
 	int getShootCountdown();

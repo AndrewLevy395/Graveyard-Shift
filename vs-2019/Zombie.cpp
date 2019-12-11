@@ -55,10 +55,10 @@ Zombie::~Zombie() {
 			v.setY(v.getY() + 3);
 			r->setPosition(v);
 		} 
-		if (DATA.getKillCounter()->getValue() == 20) {
-			SpeedItem* s = new SpeedItem();
-			s->setPosition(this->getPosition());
-		}
+		//if (DATA.getKillCounter()->getValue() == 20) {
+		//	SpeedItem* s = new SpeedItem();
+		//	s->setPosition(this->getPosition());
+		//}
 	}
 	srand(time(NULL));
 	int randNum = rand() % 20 + 1;

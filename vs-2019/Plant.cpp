@@ -21,11 +21,12 @@
 #define BASE_SHOOT_COUNTDOWN 70;
 #define PLANT_SENSE_RANGE 20;
 
-Plant::Plant(df::Vector position) {
+Plant::Plant(df::Vector position, bool dropSpeed) {
 
 	// Basic plant attributes.
 	shoot_countdown = BASE_SHOOT_COUNTDOWN;
 	m_think_countdown = 0;
+	drop_speed = dropSpeed;
 	setType("Plant");
 	setSolidness(df::HARD);
 
@@ -55,6 +56,11 @@ Plant::~Plant() {
 			r->setPosition(v);
 		}
 	}
+	if (drop_speed) {
+		SpeedItem* s = new SpeedItem();
+		s->setPosition(this->getPosition());
+	}
+
 	srand(time(NULL));
 	int randNum = rand() % 20 + 1;
 	if (randNum == 5) {

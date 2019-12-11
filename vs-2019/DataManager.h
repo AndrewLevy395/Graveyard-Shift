@@ -89,6 +89,8 @@ public:
 	int getCurrentLevel();
 
 	void determinePosition(df::Object* p_o, int position);
+
+	void placeOuterWalls();
 };
 
 #endif

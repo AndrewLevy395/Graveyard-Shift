@@ -50,17 +50,24 @@ void DataManager::transitionToNextLevel() {
 	current_level = 3;
 	df::Vector p(7, WM.getBoundary().getVertical() / 2);
 	p_hero->setPosition(p);
-	p_hero->resetPowerups();
+	//p_hero->resetPowerups();
 	removeAll("Gate");
+	removeAll("Wall");
+	removeAll("Frenzy");
+	removeAll("Plant");
+	removeAll("generator");
+	removeAll("SpeedItem");
 	placeLevel3Objects();
+	placeOuterWalls();
 	setGoalContent("Zombies Remaining:", 5);
 	}
 	else if (current_level == 1) {
 		current_level = 2;
 		df::Vector p(7, WM.getBoundary().getVertical() / 2);
 		p_hero->setPosition(p);
-		p_hero->resetPowerups();
+		//p_hero->resetPowerups();
 		removeAll("Gate");
+		removeAll("Revolver");
 		removeAll("LargeTombstone");
 		placeLevel2Objects();
 		placeLevel2Enemies(true);
@@ -260,11 +267,14 @@ void DataManager::placeLevel2Enemies(bool atGenerator) {
 	float w = WM.getBoundary().getHorizontal();
 	float h = WM.getBoundary().getVertical();
 	if (atGenerator) {
-		new Plant(df::Vector(8, 3));
+		new Plant(df::Vector(8, 3), false);
+		new Plant(df::Vector(14, h - 3), false);
 	}
-	new Plant(df::Vector(w-4, 3));
-	new Plant(df::Vector(14, h-3));
-	new Plant(df::Vector(w-4, h-3));
+	else {
+		new Plant(df::Vector(14, h - 3), true);
+	}
+	new Plant(df::Vector(w-4, 3), false);
+	new Plant(df::Vector(w-4, h-3), false);
 	//new Plant(df::Vector(w / 2, h / 2));
 }
 
@@ -319,4 +329,21 @@ void DataManager::determinePosition(df::Object* p_o, int position) {
 
 int DataManager:: getCurrentLevel() {
 	return current_level;
+}
+
+void DataManager::placeOuterWalls() {
+	// World dimensions (X,Y).
+	float X = WM.getBoundary().getHorizontal();
+	float Y = WM.getBoundary().getVertical();
+
+	// Place outer Walls.
+	Wall* p_wall;
+	p_wall = new Wall((int)X, 1);
+	p_wall->setPosition(df::Vector(X / 2.0f, 1));
+	p_wall = new Wall((int)X, 1);
+	p_wall->setPosition(df::Vector(X / 2.0f, Y - 1));
+	p_wall = new Wall(1, (int)Y - 1);
+	p_wall->setPosition(df::Vector(0, Y / 2.0f));
+	p_wall = new Wall(1, (int)Y - 1);
+	p_wall->setPosition(df::Vector(X - 1, Y / 2.0f));
 }
