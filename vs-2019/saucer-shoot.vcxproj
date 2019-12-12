@@ -152,13 +152,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Blob.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="bullet.h" />
+    <ClInclude Include="Car.h" />
     <ClInclude Include="DataManager.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="Frenzy.h" />
     <ClInclude Include="gameOver.h" />
     <ClInclude Include="gameStart.h" />
+    <ClInclude Include="GameWin.h" />
     <ClInclude Include="Gas.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="Generator.h" />
@@ -178,13 +181,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\game.cpp" />
+    <ClCompile Include="Blob.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="DataManager.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Frenzy.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GameStart.cpp" />
+    <ClCompile Include="GameWin.cpp" />
     <ClCompile Include="Gas.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Generator.cpp" />

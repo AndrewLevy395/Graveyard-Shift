@@ -26,9 +26,13 @@ void loadResources(void) {
 	RM.loadSprite("sprites/hero-l-spr.txt", "hero-l");
 	RM.loadSprite("sprites/bullet-spr.txt", "bullet");
 	RM.loadSprite("sprites/glob-spr.txt", "glob");
+	RM.loadSprite("sprites/car-spr.txt", "car");
+	RM.loadSprite("sprites/blob-spr.txt", "blob");
+	RM.loadSprite("sprites/blob-def-spr.txt", "blob-def");
 	RM.loadSprite("sprites/generator-spr.txt", "generator");
 	RM.loadSprite("sprites/explosion-spr.txt", "explosion");
 	RM.loadSprite("sprites/gameover-spr.txt", "GameOver");
+	RM.loadSprite("sprites/gamewin-spr.txt", "GameWin");
 	RM.loadSprite("sprites/gamestart-spr.txt", "GameStart");
 	RM.loadSprite("sprites/tombstone-spr.txt", "tombstone");
 	RM.loadSprite("sprites/plant-spr.txt", "plant");
@@ -43,6 +47,7 @@ void loadResources(void) {
 	RM.loadSound("sounds/fire.wav", "fire");
 	RM.loadSound("sounds/explode.wav", "explode");
 	RM.loadSound("sounds/scream.wav", "scream");
+	RM.loadSound("sounds/sos.wav", "sos");
 	RM.loadSound("sounds/game-over.wav", "game over");
 	RM.loadMusic("sounds/start-music.wav", "start music");
 	RM.loadMusic("sounds/bgmusic.wav", "level music"); //music for the level

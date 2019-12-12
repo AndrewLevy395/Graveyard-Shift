@@ -18,6 +18,8 @@
 #define LEVEL_ONE_KILL_GOAL 25
 
 GameStart::GameStart() {
+	LM.writeLog("LOADING GAMESTART");
+
 	// Put in center of window.
 	setLocation(df::CENTER_CENTER);
 	setSprite("GameStart");
@@ -27,6 +29,7 @@ GameStart::GameStart() {
 	// Play start music.
 	p_music = RM.getMusic("start music");
 	playMusic();
+	LM.writeLog("finishing GameStart");
 }
 
 int GameStart::eventHandler(const df::Event* p_e) {
@@ -53,7 +56,7 @@ int GameStart::eventHandler(const df::Event* p_e) {
 void GameStart::start() {
 	//create hero
 	DATA.setHero(new Hero());
-
+	DATA.resetVars();
 	//spawn initial large tombstone
 	LargeTombstone* Large = new LargeTombstone;
 	DATA.determinePosition(Large, 0);

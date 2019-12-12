@@ -1,0 +1,17 @@
+<HEADER>
+frames 1
+width 11
+height 4
+color white
+slowdown 8
+</HEADER>
+<BODY>
+ .( )_( ). 
+ | -(-)- | 
+ .(_)-(_). 
+  / \ / \  
+end
+</BODY>
+<FOOTER>
+version 1
+</FOOTER>

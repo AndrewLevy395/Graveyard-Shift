@@ -48,25 +48,10 @@ Plant::Plant(df::Vector position, bool dropSpeed) {
 
 
 Plant::~Plant() {
-	if (DATA.getKillCounter() != NULL) {
-		if (DATA.getKillCounter()->getValue() == 10) {
-			Revolver* r = new Revolver();
-			df::Vector v = this->getPosition();
-			v.setY(v.getY() + 3);
-			r->setPosition(v);
-		}
-	}
+
 	if (drop_speed) {
 		SpeedItem* s = new SpeedItem();
 		s->setPosition(this->getPosition());
-	}
-
-	srand(time(NULL));
-	int randNum = rand() % 20 + 1;
-	if (randNum == 5) {
-		SpeedItem* s = new SpeedItem();
-		s->setPosition(this->getPosition());
-		LM.writeLog("MADE A SPEED");
 	}
 
 	// Create an explosion.
@@ -140,8 +125,7 @@ int Plant::hit(const df::EventCollision* p_c) {
 		WM.markForDelete(p_c->getObject1());
 		WM.markForDelete(p_c->getObject2());
 
-		df::EventView ev(KILLCOUNT_STRING, 1, true);
-		WM.onEvent(&ev);
+		DATA.addKill(1);
 
 		return 1;
 	}

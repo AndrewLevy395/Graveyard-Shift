@@ -50,7 +50,9 @@ Hero::Hero() {
 
 Hero::~Hero() {
 	// Create GameOver object.
-	new GameOver;
+	if (!DATA.gameEnded) {
+		new GameOver;
+	}
 	// Mark Reticle for deletion.
 	WM.markForDelete(p_reticle);
 
@@ -62,6 +64,8 @@ Hero::~Hero() {
 
 	//Add screenshake
 	DM.shake(20, 20, 10);
+
+	DATA.setHero(NULL);
 }
 
 void Hero::setFacingRight(bool is_right) {
@@ -141,12 +145,12 @@ void Hero::hit(const df::EventCollision* p_c) {
 	if (p_c->getObject1()->getType() == "Revolver"){
 		WM.markForDelete(p_c->getObject1());
 		//Get Firing Speed boost
-		fire_slowdown = 3;
+		fire_slowdown = 5;
 	}
 	else if (p_c->getObject2()->getType() == "Revolver") {
 		WM.markForDelete(p_c->getObject2());
 		//Get firing Speed Boost
-		fire_slowdown = 3;
+		fire_slowdown = 5;
 	}
 
 	if (p_c->getObject1()->getType() == "SpeedItem") {

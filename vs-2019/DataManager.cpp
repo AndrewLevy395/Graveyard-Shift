@@ -10,6 +10,13 @@
 #include "Boss.h"
 #include "Generator.h"
 #include "LargeTombStone.h"
+#include "GameWin.h"
+#include "gameStart.h"
+#include "EventView.h"
+#include "KillCounter.h"
+#include "Blob.h"
+#include "Zombie.h"
+#include "Car.h"
 
 //override for assignment prevention
 void DataManager::operator=(DataManager const&) {}
@@ -18,9 +25,16 @@ DataManager::DataManager() {
 	p_hero;
 	goal;
 	level_music;
-	current_level = 1;
+	current_level =  1;
 	setType("DataManager");
 	numGas = 0;
+	kills = 0;
+}
+
+void DataManager::resetVars() {
+	current_level = 1;
+	numGas = 0;
+	kills = 0;
 }
 
 int DataManager::startUp() {
@@ -31,35 +45,68 @@ void DataManager::shutDown() {
 	return Manager::shutDown();
 }
 
+void DataManager::addKill(int k) {
+	df::EventView ev(KILLCOUNT_STRING, k, true);
+	WM.onEvent(&ev);
+	kills+=k;
+}
+
+void DataManager::resetKills() {
+	kills = 0;
+}
+
+int DataManager::getKills() {
+	return kills;
+}
+
 void DataManager::removeAll(std::string type) {
 	df::ObjectList allObjects = WM.getAllObjects();
 	df::ObjectListIterator it(&allObjects);
-	for (it.first(); !it.isDone(); it.next()) {
-		df::Object* p_o = it.currentObject();
-		if (p_o->getType() == type) {
-			WM.markForDelete(p_o);
+
+	if (type == "powerups") {
+		for (it.first(); !it.isDone(); it.next()) {
+			df::Object* p_o = it.currentObject();
+			if (p_o->getType() == "Revolver" || p_o->getType() == "SpeedItem" || p_o->getType() == "HealthItem") {
+				WM.markForDelete(p_o);
+			}
+		}
+	}
+	else {
+		bool rem_all = (type == "Objects");
+		for (it.first(); !it.isDone(); it.next()) {
+			df::Object* p_o = it.currentObject();
+			if (p_o->getType() == type || rem_all) {
+				if (p_o->getType() != "hero")
+					WM.markForDelete(p_o);
+			}
 		}
 	}
 }
 
 void DataManager::transitionToNextLevel() {
-	if (current_level == 3) {
-	GM.setGameOver(true);
+	//clear powerups from the screen
+	removeAll("powerups");
+
+	if (current_level >= 3) {
+		removeAll("Objects");
+		new GameWin();
 	}
-	else if (current_level == 2) {
+	else if (current_level == 2) { //2. 1 for skipping 2nd level
 	current_level = 3;
-	df::Vector p(7, WM.getBoundary().getVertical() / 2);
+	df::Vector p(10, WM.getBoundary().getVertical() / 2);
 	p_hero->setPosition(p);
 	//p_hero->resetPowerups();
 	removeAll("Gate");
 	removeAll("Wall");
 	removeAll("Frenzy");
 	removeAll("Plant");
+	removeAll("glob");
 	removeAll("generator");
 	removeAll("SpeedItem");
-	placeLevel3Objects();
 	placeOuterWalls();
-	setGoalContent("Zombies Remaining:", 5);
+	placeLevel3Objects();
+	placeLevel3Enemies();
+	setOnlyGoalMessage("Attack the Blob!");
 	}
 	else if (current_level == 1) {
 		current_level = 2;
@@ -162,7 +209,12 @@ void DataManager::setKillCounter(df::ViewObject* kc) {
 }
 
 df::ViewObject* DataManager::getKillCounter() {
-	return kill_counter;
+	if (gameEnded) {
+		return NULL;
+	}
+	else {
+		return kill_counter;
+	}
 }
 
 void DataManager::placeLevel2Objects() {
@@ -234,32 +286,27 @@ void DataManager::placeLevel2Objects() {
 
 	new Generator(df::Vector(5, 5));
 
-
 }
 
 void DataManager::placeLevel3Objects() {
+	float w = WM.getBoundary().getHorizontal();
+	float h = WM.getBoundary().getVertical();
 
-	DATA.setBossCount(5);
+	//Place Wall
+	Wall* wall = new Wall(1, 3);
+	wall->setPosition(df::Vector(w-12, h / 2));
 
-	Wall* wall;
+	//place Car
+	Car* c = new Car(df::Vector(20, (h / 2) - 4));
+}
 
-	LargeTombstone* Large0 = new LargeTombstone;
-	DATA.determinePosition(Large0, 0);
+void DataManager::placeLevel3Enemies() {
+	Blob* b = new Blob();
+	b->setPosition(df::Vector(WM.getBoundary().getHorizontal()/2, 20));
 
-	LargeTombstone* Large1 = new LargeTombstone;
-	DATA.determinePosition(Large1, 1);
-
-	LargeTombstone* Large2 = new LargeTombstone;
-	DATA.determinePosition(Large2, 2);
-
-	LargeTombstone* Large3 = new LargeTombstone;
-	DATA.determinePosition(Large3, 3);
-
-	LargeTombstone* Large4 = new LargeTombstone;
-	DATA.determinePosition(Large4, 4);
-
-	Boss* Boss0 = new Boss;
-	DATA.determinePosition(Boss0, 0);
+	for (int i = 0; i < 8; i++) {
+		new Zombie;
+	}
 
 }
 
@@ -346,4 +393,27 @@ void DataManager::placeOuterWalls() {
 	p_wall->setPosition(df::Vector(0, Y / 2.0f));
 	p_wall = new Wall(1, (int)Y - 1);
 	p_wall->setPosition(df::Vector(X - 1, Y / 2.0f));
+}
+
+void DataManager::clear() {
+	df::ObjectList allObjects = WM.getAllObjects();
+	df::ObjectListIterator it(&allObjects);
+
+	for (it.first(); !it.isDone(); it.next()) {
+		df::Object* p_o = it.currentObject();
+		WM.markForDelete(p_o);
+	}
+}
+
+void DataManager::resetGame() {
+	gameEnded = true;
+	LM.writeLog("--ABOUT TO CLEAR--");
+	DATA.clear();
+	gameEnded = false;
+	DATA.getLevelMusic()->stop();
+	LM.writeLog("GAME START AGAIN");
+	new GameStart();
+	LM.writeLog("Removing all powerups");
+	DATA.removeAll("powerups");
+	LM.writeLog("GAME RESET");
 }

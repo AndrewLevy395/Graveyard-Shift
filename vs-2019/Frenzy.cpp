@@ -18,7 +18,7 @@
 #include "SpeedItem.h"
 #include "Glob.h"
 
-#define BASE_SHOOT_COUNTDOWN 40;
+#define BASE_SHOOT_COUNTDOWN 52;
 
 Frenzy::Frenzy() {
 
@@ -87,7 +87,7 @@ void Frenzy::spit() {
 			df::Vector movement = df::Vector(-s.getX(), -s.getY());
 			movement.normalize();
 			//reduce vertical movement to match horizontal movement
-			movement.setY(movement.getY() * 0.55);
+			movement.setY(movement.getY() * 0.5);
 			g->setVelocity(movement);
 		}
 		shoot_countdown = BASE_SHOOT_COUNTDOWN;

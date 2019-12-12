@@ -12,7 +12,7 @@ Bullet::Bullet(Hero* hero) {
 	setSprite("bullet");	
 	setType("bullet");
 	// Set starting location, based on hero's position passed in.
-	int bullet_pos = hero->isFacingRight()? 3 : -3;
+	int bullet_pos = 0;// hero->isFacingRight() ? 3 : -3;
 	df::Vector p(hero->getPosition().getX() + bullet_pos, hero->getPosition().getY());
 	setPosition(p);
 
@@ -49,7 +49,9 @@ void Bullet::out() {
 // If Bullet hits Saucer, mark Saucer and Bullet for deletion. (Content moved to Suacer Hit)
 void Bullet::hit(const df::EventCollision* p_collision_event) {
 	if ((p_collision_event->getObject1()->getType() == "Wall") ||
-		(p_collision_event->getObject2()->getType() == "Wall")) {
+		(p_collision_event->getObject2()->getType() == "Wall") || 
+		(p_collision_event->getObject1()->getType() == "Car")  ||
+		(p_collision_event->getObject2()->getType() == "Car")){
 
 		if (p_collision_event->getObject1()->getType() == "bullet") {
 			WM.markForDelete(p_collision_event->getObject1());

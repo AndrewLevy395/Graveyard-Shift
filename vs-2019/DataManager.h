@@ -18,6 +18,7 @@ private:
 	int current_level;
 	int numGas;
 	int bossCount;
+	int kills;
 	Hero* p_hero;
 	df::ViewObject* goal;
 	df::Music* level_music;
@@ -30,8 +31,29 @@ private:
 	void placeLevel3Objects();
 
 public:
+
+	bool gameEnded = false;
+
+	//adds kills to the counter
+	void addKill(int k);
+
+	//gets the number of kills
+	int getKills();
+
+	//resets the kill counter for the DATA manager
+	void resetKills();
+
+	//resets all level-specific variables
+	void resetVars();
+
+	//clears all objects fform the game
+	void clear();
+
 	//places the enemies for level 2
 	void placeLevel2Enemies(bool atGenerator);
+
+	//places enemies for level 3
+	void placeLevel3Enemies();
 
 	// Get the one and only instance of the InputManager.
 	static DataManager& getInstance();
@@ -91,6 +113,8 @@ public:
 	void determinePosition(df::Object* p_o, int position);
 
 	void placeOuterWalls();
+
+	void resetGame();
 };
 
 #endif

@@ -12,13 +12,13 @@
 #include "hero.h"
 
 
-const float ZOMBIE_SPEED_CHASE = 0.15;
 const int NUM_ZOMBIES = 10;
 
 class Zombie : public df::Object {
 
 private:
 	Hero* p_hero;
+	const float ZOMBIE_SPEED_CHASE = 0.15;
 	int m_move_countdown;
 	int m_think_countdown;
 	enum direction_type direction;

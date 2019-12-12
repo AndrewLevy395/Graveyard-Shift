@@ -21,9 +21,12 @@
 #include "KillCounter.h"
 #include "explosion.h"
 
+#define STARTING_HEALTH 10
+
+
 Boss::Boss() {
 
-	health = 10;
+	health = STARTING_HEALTH;
 
 	// Basic zombie attributes.
 	m_move_countdown = 0;
@@ -46,7 +49,7 @@ Boss::Boss() {
 	p_hero = DATA.getHero();
 
 	//remove all zombies
-	DATA.removeAll("Zombie");
+	DATA.removeAll("LargeTombstone");
 
 	//determine the zombie's position
 	DATA.determinePosition(this, 0);
@@ -141,13 +144,15 @@ void Boss::setChase() {
 	setVelocity(movement);
 
 	//change left/right sprite based on hero location
-	if (!facingRight && this->getPosition().getX() < p_hero->getPosition().getX()) {
-		setSprite("zombie-boss-r");
-		facingRight = true;
-	}
-	else if (facingRight && this->getPosition().getX() > p_hero->getPosition().getX()) {
-		setSprite("zombie-boss-l");
-		facingRight = false;
+	if (p_hero != NULL) {
+		if (!facingRight && this->getPosition().getX() < p_hero->getPosition().getX()) {
+			setSprite("zombie-boss-r");
+			facingRight = true;
+		}
+		else if (facingRight && this->getPosition().getX() > p_hero->getPosition().getX()) {
+			setSprite("zombie-boss-l");
+			facingRight = false;
+		}
 	}
 }
 
@@ -156,7 +161,6 @@ int Boss::hit(const df::EventCollision* p_c) {
 	// If Bullet...
 
 	if (DATA.getCurrentLevel() == 1) {
-		LM.writeLog("CURRENT LEVEL: %d", DATA.getCurrentLevel());
 		if (p_c->getObject1()->getType() == "Tombstone" || p_c->getObject1()->getType() == "LargeTombstone") {
 			WM.markForDelete(p_c->getObject1());
 		}
@@ -182,8 +186,7 @@ int Boss::hit(const df::EventCollision* p_c) {
 		Explosion* p_explosion = new Explosion;
 		p_explosion->setPosition(this->getPosition());
 
-		df::EventView ev(KILLCOUNT_STRING, 100, true);
-		WM.onEvent(&ev);
+		DATA.addKill(100);
 
 		if (bull_num == 1) {
 			WM.markForDelete(p_c->getObject2());
@@ -199,9 +202,14 @@ int Boss::hit(const df::EventCollision* p_c) {
 // If can see Hero and can sense Hero, return direction
 // else return (0,0).
 df::Vector Boss::seeHero() {
-	df::Vector dir = getPosition() - p_hero->getPosition();
-	dir.normalize();
-	return dir;
+	if (p_hero != NULL) {
+		df::Vector dir = getPosition() - p_hero->getPosition();
+		dir.normalize();
+		return dir;
+	}
+	else {
+		return df::Vector(0, 0);
+	}
 }
 
 void Boss::setHealth(int new_health) {

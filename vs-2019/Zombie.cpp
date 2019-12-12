@@ -24,14 +24,14 @@
 Zombie::Zombie(){
 
 	// Basic zombie attributes.
-	m_move_countdown = 0;
+	m_move_countdown = 10;
 	m_think_countdown = 0;
 	setType("Zombie");
 	setSolidness(df::SOFT);
 	//Has HARD-like collisions with Soft Objects
 	setNoSoft(true);
 	setAltitude(3);
-	setSpeed(0.25);
+	setSpeed(0.25); //speed is 0.25
 
 
 	// Default sprite
@@ -48,18 +48,18 @@ Zombie::Zombie(){
 }
 
 Zombie::~Zombie() {
-	if (DATA.getKillCounter() != NULL) {
-		if (DATA.getKillCounter()->getValue() == 10) {
-			Revolver* r = new Revolver();
-			df::Vector v = this->getPosition();
-			v.setY(v.getY() + 3);
-			r->setPosition(v);
-		} 
-		//if (DATA.getKillCounter()->getValue() == 20) {
-		//	SpeedItem* s = new SpeedItem();
-		//	s->setPosition(this->getPosition());
-		//}
-	}
+
+	if (DATA.getKills() == 10) {
+		Revolver* r = new Revolver();
+		df::Vector v = this->getPosition();
+		v.setY(v.getY() + 3);
+		r->setPosition(v);
+	} 
+	//if (DATA.getKillCounter()->getValue() == 20) {
+	//	SpeedItem* s = new SpeedItem();
+	//	s->setPosition(this->getPosition());
+	//}
+	
 	srand(time(NULL));
 	int randNum = rand() % 20 + 1;
 	if (randNum == 10) {
@@ -166,7 +166,7 @@ void Zombie::stopAnimation(bool stop) {
 // Handle event.
 // Return 0 if ignored, else 1
 int Zombie::eventHandler(const df::Event* e) {
-	if (e->getType() == df::STEP_EVENT){
+	if (e->getType() == df::STEP_EVENT) {
 		setChase();
 		return 1;
 	}
@@ -174,6 +174,7 @@ int Zombie::eventHandler(const df::Event* e) {
 		const df::EventCollision* p_c = dynamic_cast <df::EventCollision const*> (e);
 		return hit(p_c);
 	}
+
 	return 0;
 }
 
@@ -188,6 +189,11 @@ void Zombie::setChase() {
 
 	//reduce vertical movement to match horizontal movement
 	movement.setY(movement.getY() * 0.55);
+	if (!WM.getCollisions(this, this->getPosition()).isEmpty()) {
+		LM.writeLog("slow down");
+		movement.setXY(movement.getX()*0.5, movement.getY()*0.5);
+	}
+
 	setVelocity(movement);
 
 	//change left/right sprite based on hero location
@@ -203,7 +209,7 @@ void Zombie::setChase() {
 
 //code to be run for an object colliding with a zombie
 int Zombie::hit(const df::EventCollision* p_c) {
-	// If Saucer on Saucer, ignore.
+	// If zombie vs zombie, ignore.
 	if ((p_c->getObject1()->getType() == "Zombie") &&
 		(p_c->getObject2()->getType() == "Zombie"))
 		return 1;
@@ -217,11 +223,11 @@ int Zombie::hit(const df::EventCollision* p_c) {
 		WM.markForDelete(p_c->getObject1());
 		WM.markForDelete(p_c->getObject2());
 
-		df::EventView ev(KILLCOUNT_STRING, 1, true);
-		WM.onEvent(&ev);
+		DATA.addKill(1);
 
 		return 1;
 	}
+
 	return 0;
 }
 
@@ -229,7 +235,7 @@ int Zombie::hit(const df::EventCollision* p_c) {
 // If can see Hero and can sense Hero, return direction
 // else return (0,0).
 df::Vector Zombie::seeHero() {
-	if (p_hero) {
+	if (p_hero != NULL) {
 		df::Vector dir = getPosition() - p_hero->getPosition();
 		dir.normalize();
 		return dir;

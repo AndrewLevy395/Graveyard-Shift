@@ -16,12 +16,15 @@ KillCounter::KillCounter() {
 	setColor(df::YELLOW);
 }
 
+KillCounter::~KillCounter() {
+	DATA.setKillCounter(NULL);
+}
+
 int KillCounter::eventHandler(const df::Event* p_e) {
 
 	// Parent handles event if score update.
 	if (df::ViewObject::eventHandler(p_e)) {
 		if (this->getValue() == DATA.getGoalObject()->getValue()) {
-			DATA.removeAll("Zombie");
 			DATA.setOnlyGoalMessage("DEFEAT THE BOSS!");
 			DATA.setBossCount(1);
 			new Boss;

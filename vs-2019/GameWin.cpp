@@ -1,24 +1,16 @@
-#include "gameOver.h"
 #include "LogManager.h"
 #include "WorldManager.h"
 #include "GameManager.h"
 #include "ResourceManager.h"
 #include "EventOut.h"
 #include "EventStep.h"
-#include "gameStart.h"
 #include "DataManager.h"
+#include "GameWin.h"
 
-GameOver::GameOver() {
-	setType("GameOver");
-
-	//Remove enemies
-	DATA.removeAll("Zombie");
-	DATA.removeAll("Boss");
-	DATA.removeAll("Frenzy");
-	DATA.removeAll("Plant");
-
+GameWin::GameWin() {
+	setType("GameWin");
 	// Link to "message" sprite.
-	if (setSprite("GameOver") == 0)
+	if (setSprite("GameWin") == 0)
 		time_to_live = getAnimation().getSprite()->getFrameCount() * getAnimation().getSprite()->getSlowdown();
 	else
 		time_to_live = 0;
@@ -28,21 +20,18 @@ GameOver::GameOver() {
 	// Register for step event.
 	registerInterest(df::STEP_EVENT);
 
-	//Kill all zombies that may be chasing
-
-	// Play "game over" sound.
-	df::Sound* p_sound = RM.getSound("scream");
+	// play sound for when game ends
+	df::Sound* p_sound = RM.getSound("sos");
 	p_sound->play();
 
 }
 
 // When object exits, indicate game over.
-GameOver::~GameOver() {
-	DATA.resetGame();
-	//GM.setGameOver();
+GameWin::~GameWin() {
+	GM.setGameOver();
 }
 
-int GameOver::eventHandler(const df::Event* p_e) {
+int GameWin::eventHandler(const df::Event* p_e) {
 
 	if (p_e->getType() == df::STEP_EVENT) {
 		step();
@@ -53,13 +42,13 @@ int GameOver::eventHandler(const df::Event* p_e) {
 }
 
 // Count down to end of message.
-void GameOver::step() {
+void GameWin::step() {
 	time_to_live--;
 	if (time_to_live <= 0)
 		WM.markForDelete(this);
 }
 
 // Override default draw so as not to display "value".
-int GameOver::draw() {
+int GameWin::draw() {
 	return df::Object::draw();
 }

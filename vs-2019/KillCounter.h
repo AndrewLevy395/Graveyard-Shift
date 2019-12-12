@@ -11,5 +11,6 @@ private:
 
 public:
 	KillCounter();
+	~KillCounter();
 	int eventHandler(const df::Event* p_e);
 };

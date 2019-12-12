@@ -46,7 +46,9 @@ void Glob::out() {
 // if wall is hit, mark glob for deletion
 void Glob::hit(const df::EventCollision* p_collision_event) {
 	if ((p_collision_event->getObject1()->getType() == "Wall") ||
-		(p_collision_event->getObject2()->getType() == "Wall")) {
+		(p_collision_event->getObject2()->getType() == "Wall") ||
+		(p_collision_event->getObject1()->getType() == "Car") ||
+		(p_collision_event->getObject2()->getType() == "Car")){
 
 		if (p_collision_event->getObject1()->getType() == "glob") {
 			WM.markForDelete(p_collision_event->getObject1());

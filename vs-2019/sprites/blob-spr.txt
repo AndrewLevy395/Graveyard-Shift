@@ -1,0 +1,27 @@
+<HEADER>
+frames 3
+width 11
+height 4
+color red
+slowdown 8
+</HEADER>
+<BODY>
+/\( )_( )/\
+|  G(O)G  |
+  (_)-(_)  
+  / \ / \  
+end
+/\( )_( )/\
+|  -(-)-  |
+  (_)-(_)  
+  / \ / \  
+end
+ /( )_( )\ 
+/  G(O)G  \
+  (_)-(_)  
+  / \ / \  
+end
+</BODY>
+<FOOTER>
+version 1
+</FOOTER>
